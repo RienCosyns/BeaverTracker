@@ -1,4 +1,5 @@
 // empty viewscript based on the view prompt
+// just console logs for now
 
 var beaverViewer = {
     displayBeavers: function(){
