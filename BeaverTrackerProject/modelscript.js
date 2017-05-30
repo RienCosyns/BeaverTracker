@@ -15,9 +15,11 @@ var beaverApp = {
         // args: /
         var beavers = [];
         //code here
-
+        for (key in this.beaverObjects){
+            beavers.push(this.beaverObjects[key]);
+        }
         //return array
-        return this.beaverObjects["1"];
+        return beavers;
     },
     addNew: function(beaverObj){
         var message = "Success";
@@ -41,3 +43,5 @@ var beaverApp = {
         return message;
     }
 }
+
+console.log(beaverApp.getAll());
