@@ -1,13 +1,13 @@
-// Empty beaverApp object based on the prompt
+// dummy beaverApp object based on the prompt
 
 var beaverApp = {
     beaverObjects: {
         1 : {
-        name: "string",
-        age: 0000,
-        sex: "string",
-        location: [],
-        track: Boolean
+        name: "Paddy",
+        age: 5,
+        sex: "male",
+        location: ["Galway"],
+        track: true
         },
         2 : {},
     },
@@ -17,24 +17,24 @@ var beaverApp = {
         //code here
 
         //return array
-        return beavers;
+        return this.beaverObjects["1"];
     },
     addNew: function(beaverObj){
-        var message;
+        var message = "Success";
         //code here
 
         //return message(Success/failure);
         return message;
     },
     addLocation: function(beaverObj, location){
-         var message;
+         var message = "Success";
         //code here
 
         //return message(Success/failure);
         return message;
     },
     tracking: function(beaverObj){
-        var message;
+        var message = "Toggled tracking";
         //code here
 
         //return message(Success/failure);

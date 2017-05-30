@@ -6,26 +6,29 @@ var beaverViewer = {
         //args : nada
 
         // code here
-
-        return beaverEvents.displayBeavers();
+        console.log(beaverEvents.displayBeavers());  
     },
     stringifyBeaver: function(beaverObj){
-        beaverString = "";
+        beaverString = "Billy, 5 years old, male, spotted in Galway";
 
         //code here
 
-        return beaverString
+        console.log(beaverString);
     },
     addLocationButton: function(){
         //code here
+        console.log(beaverApp.beaverObjects["1"].location.push("Dublin"));
     },
     addTrackButton: function(){
         //code here
+        console.log(beaverApp.beaverObjects["1"].track)
     },
     untrackAllButton: function(){
         //code here
+        console.log("All untracked")
     },
     trackAllButton: function(){
         //code here
+        console.log("tracking all");
     }
 }
