@@ -3,29 +3,31 @@
 var beaverEvents = {
     displayBeavers: function(){
         //code here
-        return beaverApp.getAll();
-
+        var arr = beaverApp.getAll();
+        beaverViewer.displayBeavers(arr);
     },
     addBeaver: function(name, age, sex, location){
-        beaverObj = {
-            name: "Beverly",
-            age: 3,
-            sex: "female",
-            location: "Boston",
-            track: true
-        };
+        var beaver = {
+            name: name,
+            age: age,
+            sex: sex,
+            location: [].push(location),
+            track: true 
+        }
 
         //code here
-        beaverApp.addNew(addBeaver);
+        // do beaver check
+        beaverApp.addNew(beaver);
+        this.displayBeavers();
     },
     addLocation: function(beaverObj, location){
         //code here
-        beaverApp.addLocation(this.beaverObjects["1"], "Dublin");
+        console.log(beaverApp.addLocation(beaverObj, location));
 
     },
     toggleTracking: function(beaverObj){
         //code here
-        beaverApp.tracking(!this.beaverObjects["1"].track)
+        console.log(beaverApp.tracking(beaverObj));
     },
     untrackAll: function(){
         //code here
