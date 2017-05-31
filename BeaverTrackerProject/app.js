@@ -9,5 +9,5 @@ console.log(view);
 console.log(controller);
 
 function init(){
-    return;
+    // add model and view to controller
 }
