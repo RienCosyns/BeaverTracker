@@ -2,14 +2,13 @@
 
 var beaverApp = {
     beaverObjects: {
-        1 : {
+        0 : {
         name: "Paddy",
         age: 5,
         sex: "male",
         location: ["Galway"],
         track: true
-        },
-        2 : {},
+        }
     },
     getAll: function(){
         // args: /
@@ -24,7 +23,9 @@ var beaverApp = {
     addNew: function(beaverObj){
         var message = "Success";
         //code here
-
+        var keys = Object.keys(this.beaverObjects);
+        this.beaverObjects[keys.length] = beaverObj;
+        console.log(this.beaverObjects);
         //return message(Success/failure);
         return message;
     },

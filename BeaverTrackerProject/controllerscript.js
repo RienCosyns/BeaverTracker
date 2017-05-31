@@ -8,7 +8,7 @@ var beaverEvents = {
     },
     addBeaver: function(name, age, sex, location){
         beaverObj = {
-            name: "Beverly",
+            name: "Beaverly",
             age: 3,
             sex: "female",
             location: "Boston",
@@ -16,7 +16,7 @@ var beaverEvents = {
         };
 
         //code here
-        beaverApp.addNew(addBeaver);
+        beaverApp.addNew(beaverObj);
     },
     addLocation: function(beaverObj, location){
         //code here
