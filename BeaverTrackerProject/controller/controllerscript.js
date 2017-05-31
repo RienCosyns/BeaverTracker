@@ -52,20 +52,32 @@ var beaverEvents = {
     },
     toggleTracking: function(beaverId){
         //code here
-        this.modelState.tracking(beaverId);
-        if (this.modelState.beaverObjects[beaverId].track){
-            console.log("Tracking " + this.modelState.getBeaverById(beaverId).name);
-        }else{
-            console.log("No longer tracking " + this.modelState.getBeaverById(beaverId).name);
-        }
+        this.modelState.tracking(beaverId, (err) =>{
+            if (err){
+                console.log("Beaver doesn't exist");
+            }else{
+                if (this.modelState.beaverObjects[beaverId].track){
+                    console.log("Tracking " + this.modelState.getBeaverById(beaverId).name);
+                }else{
+                    console.log("No longer tracking " + this.modelState.getBeaverById(beaverId).name);
+                }
+            }
+        });
+        
     },
     untrackAll: function(){
         //code here
-        console.log("All untracked");
+        for (key in this.modelState.beaverObjects){
+            this.modelState.beaverObjects[key].track = false;
+        }
+        return "No longer tracking any beavers"
     },
     trackAll: function(){
         //code here
-        console.log("Tracking");
+        for (key in this.modelState.beaverObjects){
+            this.modelState.beaverObjects[key].track = true;
+        }
+        return "Tracking all beavers";
     }
 }
 
