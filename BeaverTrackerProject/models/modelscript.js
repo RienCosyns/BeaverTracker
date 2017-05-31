@@ -1,6 +1,7 @@
 // dummy beaverApp object based on the prompt
 
 var beaverApp = {
+    nextId: 0,
     beaverObjects: {
         0 : {
         name: "Paddy",
@@ -9,6 +10,9 @@ var beaverApp = {
         location: ["Galway"],
         track: true
         }
+    },
+    getBeaverById: function(id){
+        return this.beaverObjects[id];
     },
     getAll: function(){
         // args: /
