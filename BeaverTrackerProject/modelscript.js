@@ -23,11 +23,9 @@ var beaverApp = {
     addNew: function(beaver){
         var message = "Success";
         //code here
-        this.beaverObjects[3] = {name: "Beaverly",
-                                 age: 6,
-                                 sex: "female",
-                                 location: ["Beavertown"],
-                                 track: true};
+        var keys = Object.keys(this.beaverObjects);
+        this.beaverObjects[keys.length] = beaver;
+        console.log(this.beaverObjects);
         //return message(Success/failure);
         return message;
     },
