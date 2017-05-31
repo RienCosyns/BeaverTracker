@@ -3,7 +3,8 @@
 var beaverEvents = {
     displayBeavers: function(){
         //code here
-        return beaverApp.getAll();
+        var arr =  beaverApp.getAll();
+        beaverViewer.displayBeavers(arr);
 
     },
     addBeaver: function(name, age, sex, location){
