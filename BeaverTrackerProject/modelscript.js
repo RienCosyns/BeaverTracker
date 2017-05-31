@@ -2,31 +2,42 @@
 
 var beaverApp = {
     beaverObjects: {
-        1 : {
+        0 : {
         name: "Paddy",
         age: 5,
         sex: "male",
         location: ["Galway"],
         track: true
-        },
-        2 : {},
+        }
     },
     getAll: function(){
         // args: /
         var beavers = [];
         //code here
-
+        for (key in this.beaverObjects){
+            beavers.push(this.beaverObjects[key]);
+        }
         //return array
+<<<<<<< HEAD
         return [{}, {}];
+=======
+        return beavers;
+>>>>>>> model
     },
     addNew: function(beaver){
         var message = "Success";
         //code here
+<<<<<<< HEAD
         this.beaverObjects[3] = {name: "Beaverly",
                                  age: 6,
                                  sex: "female",
                                  location: ["Beavertown"],
                                  track: true};
+=======
+        var keys = Object.keys(this.beaverObjects);
+        this.beaverObjects[keys.length] = beaverObj;
+        console.log(this.beaverObjects);
+>>>>>>> model
         //return message(Success/failure);
         return message;
     },
@@ -47,3 +58,5 @@ var beaverApp = {
         return message;
     }
 }
+
+console.log(beaverApp.getAll());

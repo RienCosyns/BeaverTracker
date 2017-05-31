@@ -7,6 +7,7 @@ var beaverEvents = {
         beaverViewer.displayBeavers(arr);
     },
     addBeaver: function(name, age, sex, location){
+<<<<<<< HEAD
         var beaver = {
             name: name,
             age: age,
@@ -19,6 +20,18 @@ var beaverEvents = {
         // do beaver check
         beaverApp.addNew(beaver);
         this.displayBeavers();
+=======
+        beaverObj = {
+            name: "Beaverly",
+            age: 3,
+            sex: "female",
+            location: "Boston",
+            track: true
+        };
+
+        //code here
+        beaverApp.addNew(beaverObj);
+>>>>>>> model
     },
     addLocation: function(beaverObj, location){
         //code here
