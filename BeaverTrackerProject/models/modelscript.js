@@ -11,6 +11,9 @@ var beaverApp = {
         track: true
         }
     },
+    incrementId: function(){
+        this.nextId++;
+    },
     getBeaverById: function(id){
         return this.beaverObjects[id];
     },
@@ -50,5 +53,3 @@ var beaverApp = {
         return message;
     }
 }
-
-console.log(beaverApp.getAll());
