@@ -12,8 +12,11 @@ function init(){
     // add model and view to controller
     controller.addModel(model);
     controller.getView(view);
-    var arr = controller.modelState.getAll();
-    controller.viewState.beaverConsoleViewer.displayBeavers(arr);
+    controller.displayBeavers();
+    console.log("============")
 }
+init();
+//console.log(init());
 
-console.log(init());
+console.log(controller.addBeaver("Beaverly", 6, "female", "Beavertown"));
+console.log(controller.addBeaver("Keaver",null, "Other", "Ontario"));

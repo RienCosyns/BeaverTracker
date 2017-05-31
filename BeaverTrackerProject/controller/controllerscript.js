@@ -5,16 +5,16 @@ var beaverEvents = {
     viewState: {},
     addModel: function(model){
         this.modelState = model;
-        console.log(this.modelState);
+        //console.log(this.modelState);
     },
     getView: function(view){
         this.viewState[view.name] = view;
-        console.log(this.viewState);
+        //console.log(this.viewState);
     },
     displayBeavers: function(){
         //code here
-        var arr = beaverApp.getAll();
-        beaverViewer.displayBeavers(arr);
+        var arr = this.modelState.getAll();
+        this.viewState.beaverConsoleViewer.displayBeavers(arr);
     },
     addBeaver: function(name, age, sex, location){
             var beaver = {
@@ -23,13 +23,20 @@ var beaverEvents = {
             sex: sex,
             location: [],
             track: true
-            }
+        }
+           //console.log(beaver);
             if (location !== undefined){
-                beaver.location.push(location);
+                beaver.location[0] = location;
             }
-            console.log(beaver);
-            beaverApp.addNew(beaver);
-            this.displayBeavers();
+            this.modelState.addNew(beaver, (err) =>{
+                if (err){
+                    console.log("Invalid arguments");
+                    return false;
+                }else{
+                    console.log("Beaver added");
+                    this.displayBeavers();
+                }
+            });
     },
     addLocation: function(beaverObj, location){
         //code here

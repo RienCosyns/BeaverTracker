@@ -14,6 +14,9 @@ var beaverApp = {
     getBeaverById: function(id){
         return this.beaverObjects[id];
     },
+    incrementId: function(){
+        this.nextId++;
+    },
     getAll: function(){
         // args: /
         var beavers = [];
@@ -24,12 +27,24 @@ var beaverApp = {
         //return array
         return beavers;
     },
-    addNew: function(beaver){
+    addNew: function(beaver, cb){
         var message = "Success";
+        var err;
         //code here
-        var keys = Object.keys(this.beaverObjects);
-        this.beaverObjects[keys.length] = beaver;
-        console.log(this.beaverObjects);
+        // check if beaver has name, age and sex   
+        //console.log("age: " + beaver.age == "number");
+        if (typeof(beaver.name)  == "string" && typeof(beaver.age) == "number" &&
+            typeof(beaver.sex) == "string"){
+                err = false;
+                this.incrementId();
+                this.beaverObjects[this.nextId] = beaver;
+                //console.log(this.beaverObjects);
+            }else{
+                err = true;
+                message = "Failed";
+            }
+        //console.log(this.beaverObjects);
+        cb(err);
         //return message(Success/failure);
         return message;
     },
