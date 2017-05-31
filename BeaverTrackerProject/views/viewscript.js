@@ -32,3 +32,5 @@ var beaverViewer = {
         
     }
 }
+
+module.exports = beaverViewer;

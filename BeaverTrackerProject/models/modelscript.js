@@ -51,4 +51,4 @@ var beaverApp = {
     }
 }
 
-console.log(beaverApp.getAll());
+module.exports = beaverApp;

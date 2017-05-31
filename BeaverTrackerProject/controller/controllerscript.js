@@ -39,3 +39,5 @@ var beaverEvents = {
         console.log("Tracking");
     }
 }
+
+module.exports = beaverEvents;
