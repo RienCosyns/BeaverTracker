@@ -8,16 +8,19 @@ var beaverEvents = {
 
     },
     addBeaver: function(name, age, sex, location){
-        beaverObj = {
-            name: "Beverly",
-            age: 3,
-            sex: "female",
-            location: "Boston",
+            var beaver = {
+            name: name,
+            age: age,
+            sex: sex,
+            location: [],
             track: true
-        };
-
-        //code here
-        beaverApp.addNew(addBeaver);
+            }
+            if (location !== undefined){
+                beaver.location.push(location);
+            }
+            console.log(beaver);
+            beaverApp.addNew(beaver);
+            this.displayBeavers();
     },
     addLocation: function(beaverObj, location){
         //code here
