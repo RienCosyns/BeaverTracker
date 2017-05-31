@@ -18,6 +18,11 @@ function init(){
 init();
 //console.log(init());
 
-console.log(controller.addBeaver("Beaverly", 6, "female", "Beavertown"));
-console.log(controller.addBeaver("Keaver",null, "Other", "Ontario"));
-console.log(controller.addLocation(0, "Dublin")); 
+controller.addBeaver("Beaverly", 6, "female", "Beavertown");
+controller.addBeaver("Keaver",null, "Other", "Ontario");
+controller.addLocation(0, "Dublin"); 
+
+controller.toggleTracking(1);
+console.log(model.beaverObjects["1"]);
+controller.toggleTracking(1);
+console.log(model.beaverObjects["1"]);

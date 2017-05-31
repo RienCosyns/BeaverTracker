@@ -50,9 +50,14 @@ var beaverEvents = {
         })
 
     },
-    toggleTracking: function(beaverObj){
+    toggleTracking: function(beaverId){
         //code here
-        console.log(beaverApp.tracking(beaverObj));
+        this.modelState.tracking(beaverId);
+        if (this.modelState.beaverObjects[beaverId].track){
+            console.log("Tracking " + this.modelState.getBeaverById(beaverId).name);
+        }else{
+            console.log("No longer tracking " + this.modelState.getBeaverById(beaverId).name);
+        }
     },
     untrackAll: function(){
         //code here
