@@ -3,40 +3,8 @@
 var beaverEvents = {
     displayBeavers: function(){
         //code here
-<<<<<<< HEAD
         var arr = beaverApp.getAll();
         beaverViewer.displayBeavers(arr);
-    },
-    addBeaver: function(name, age, sex, location){
-<<<<<<< HEAD
-        var beaver = {
-            name: name,
-            age: age,
-            sex: sex,
-            location: [].push(location),
-            track: true 
-        }
-
-        //code here
-        // do beaver check
-        beaverApp.addNew(beaver);
-        this.displayBeavers();
-=======
-        beaverObj = {
-            name: "Beaverly",
-            age: 3,
-            sex: "female",
-            location: "Boston",
-            track: true
-        };
-
-        //code here
-        beaverApp.addNew(beaverObj);
->>>>>>> model
-=======
-        var arr =  beaverApp.getAll();
-        beaverViewer.displayBeavers(arr);
-
     },
     addBeaver: function(name, age, sex, location){
             var beaver = {
@@ -52,7 +20,6 @@ var beaverEvents = {
             console.log(beaver);
             beaverApp.addNew(beaver);
             this.displayBeavers();
->>>>>>> controller
     },
     addLocation: function(beaverObj, location){
         //code here
