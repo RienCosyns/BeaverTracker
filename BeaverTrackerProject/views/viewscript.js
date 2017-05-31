@@ -1,35 +1,21 @@
 // empty viewscript based on the view prompt
 // just console logs for now
 
-var beaverViewer = {
+var beaverConsoleViewer = {
+    name: "beaverConsoleViewer",
     displayBeavers: function(arr){
         //args : nada
 
         // code here
-        console.log(arr[0], arr[1]);  
+        arr.forEach(function(element) {
+            console.log(element);
+        }, this);  
     },
     stringifyBeaver: function(beaverObj){
-        beaverString = "Billy, 5 years old, male, spotted in Galway";
-
-        //code here
-
+        var beaverString = "";
+        beaverString = beaverObj.name + " is " + beaverObj.age + " years old, " + beaverObj.sex + 
+                        " and was spotted in " + beaverObj.location + ".";
         console.log(beaverString);
-    },
-    addLocationButton: function(){
-        //code here
-        
-    },
-    addTrackButton: function(){
-        //code here
-       
-    },
-    untrackAllButton: function(){
-        //code here
-        
-    },
-    trackAllButton: function(){
-        //code here
-        
     }
 }
 
