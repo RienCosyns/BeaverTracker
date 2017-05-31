@@ -1,6 +1,16 @@
 // Dummy controller script based on controller prompt
 
 var beaverEvents = {
+    modelState: {},
+    viewState: {},
+    addModel: function(model){
+        this.modelState = model;
+        console.log(this.modelState);
+    },
+    getView: function(view){
+        this.viewState[view.name] = view;
+        console.log(this.viewState);
+    },
     displayBeavers: function(){
         //code here
         var arr = beaverApp.getAll();

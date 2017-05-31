@@ -7,9 +7,9 @@ var beaverConsoleViewer = {
         //args : nada
 
         // code here
-        arr.forEach(function(element) {
-            console.log(element);
-        }, this);  
+        for (var i = 0; i < arr.length;i++){
+            this.stringifyBeaver(arr[i]);
+        } 
     },
     stringifyBeaver: function(beaverObj){
         var beaverString = "";
@@ -19,4 +19,4 @@ var beaverConsoleViewer = {
     }
 }
 
-module.exports = beaverViewer;
+module.exports = beaverConsoleViewer;
