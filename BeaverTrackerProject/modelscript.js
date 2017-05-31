@@ -18,26 +18,16 @@ var beaverApp = {
             beavers.push(this.beaverObjects[key]);
         }
         //return array
-<<<<<<< HEAD
-        return [{}, {}];
-=======
         return beavers;
->>>>>>> model
     },
     addNew: function(beaver){
         var message = "Success";
         //code here
-<<<<<<< HEAD
         this.beaverObjects[3] = {name: "Beaverly",
                                  age: 6,
                                  sex: "female",
                                  location: ["Beavertown"],
                                  track: true};
-=======
-        var keys = Object.keys(this.beaverObjects);
-        this.beaverObjects[keys.length] = beaverObj;
-        console.log(this.beaverObjects);
->>>>>>> model
         //return message(Success/failure);
         return message;
     },
