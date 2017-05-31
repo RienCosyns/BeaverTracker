@@ -14,7 +14,7 @@ var beaverConsoleViewer = {
     stringifyBeaver: function(beaverObj){
         var beaverString = "";
         beaverString = beaverObj.name + " is " + beaverObj.age + " years old, " + beaverObj.sex + 
-                        " and was spotted in " + beaverObj.location + ".";
+                        " and was spotted in " + beaverObj.location.join(", ") + ".";
         console.log(beaverString);
     }
 }

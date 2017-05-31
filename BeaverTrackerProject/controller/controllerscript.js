@@ -38,9 +38,16 @@ var beaverEvents = {
                 }
             });
     },
-    addLocation: function(beaverObj, location){
+    addLocation: function(beaverId, location){
         //code here
-        console.log(beaverApp.addLocation(beaverObj, location));
+        this.modelState.addLocation(beaverId, location, (err) => {
+            if (err){
+                console.log("Unknown location");
+            }else{
+                console.log("Location added to " + this.modelState.getBeaverById(beaverId).name);
+                this.displayBeavers();
+            }
+        })
 
     },
     toggleTracking: function(beaverObj){

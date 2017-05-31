@@ -48,12 +48,23 @@ var beaverApp = {
         //return message(Success/failure);
         return message;
     },
-    addLocation: function(beaverObj, location){
+    addLocation: function(beaverId, location, cb){
          var message = "Success";
+         var err;
         //code here
 
-        //return message(Success/failure);
-        this.beaverObjects["1"].location.push("Dublin");
+        // if id exists and location is a valid string, add the location to the beaver
+
+        if (beaverId in this.beaverObjects
+            && typeof(location) == "string"){
+                this.beaverObjects[beaverId].location.push(location);
+                err = false;
+            }else{
+                message = "failed";
+                err = true;
+            }
+    
+        cb(err);
         return message;
     },
     tracking: function(beaverObj){
