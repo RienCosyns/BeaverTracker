@@ -79,12 +79,20 @@ var beaverApp = {
         cb(err);
         return message;
     },
-    tracking: function(beaverObj){
+    tracking: function(beaverId, cb){
         var message = "Toggled tracking";
+        var err;
         //code here
-
+        if (beaverId in this.beaverObjects){
+            this.beaverObjects[beaverId].track = !this.beaverObjects[beaverId].track;
+            err = false;
+        }else{
+            err = true;
+            message = "failed";
+        }
+        
         //return message(Success/failure);
-        this.beaverObjects["1"].track = !this.beaverObjects["1"].track;
+        cb(err);
         return message;
-    }
+    }   
 }

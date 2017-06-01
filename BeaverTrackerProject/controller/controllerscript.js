@@ -51,24 +51,45 @@ var beaverEvents = {
         handlers.setupEvents();
 
     },
-    toggleTracking: function(beaverObj){
+    toggleTracking: function(beaverId){
         //code here
-        console.log(beaverApp.tracking(beaverObj));
+        this.modelState.tracking(beaverId, (err) =>{
+            if (err){
+                alert("Beaver doesn't exist");
+            }else{
+                if (this.modelState.beaverObjects[beaverId].track){
+                    alert("Tracking " + this.modelState.getBeaverById(beaverId).name);
+                }else{
+                    alert("No longer tracking " + this.modelState.getBeaverById(beaverId).name);
+                }
+            }
+        });
+
+        this.displayBeavers();
+        handlers.setupEvents();
+        
     },
     untrackAll: function(){
         //code here
-        console.log("All untracked");
+        for (key in this.modelState.beaverObjects){
+            this.modelState.beaverObjects[key].track = false;
+        }
+        alert("No longer tracking any beavers");
     },
     trackAll: function(){
         //code here
-        console.log("Tracking");
+        for (key in this.modelState.beaverObjects){
+            this.modelState.beaverObjects[key].track = true;
+        }
+        alert("Tracking all beavers");
     }
 }
 
 var handlers = {
     setupEvents: function(){
         var addButton = document.getElementById("addButton");
-        var addLocationButton = document.getElementsByClassName("locationButtons");
+        var addLocationButtons = document.getElementsByClassName("locationButtons");
+        var trackButtons = document.getElementsByClassName("trackButtons");
 
         addButton.onclick = function(){
             var name = document.getElementById("nameInput").value;
@@ -79,12 +100,19 @@ var handlers = {
             document.getElementById("myForm").reset();
         }
 
-        for (var i = 0; i < addLocationButton.length; i++){
-            addLocationButton[i].onclick = function(){
+        for (var i = 0; i < addLocationButtons.length; i++){
+            addLocationButtons[i].onclick = function(){
                 var locationPrompt = prompt("Please add new location");
                // console.log(this.parentElement.getAttribute("id"));
                 var id = this.parentElement.getAttribute("id");
                 beaverEvents.addLocation(id, locationPrompt);
+            }
+        }
+
+        for (var i = 0; i < trackButtons.length;i++){
+            trackButtons[i].onclick = function(){
+                var id = this.parentElement.getAttribute("id");
+                beaverEvents.toggleTracking(id);
             }
         }
     }

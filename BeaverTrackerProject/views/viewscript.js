@@ -19,12 +19,17 @@ var beaverBrowserViewer = {
 
          for (var i = 0; i < arr.length; i++){
              var text = this.stringifyBeaver(arr[i]);
-             // console.log(text);
+             if (arr[i].track){
+                 text = text + " Tracking.";
+             }else{
+                 text = text + " Not tracking."
+             }
              var beaverItem = document.createElement("li");
              beaverList.appendChild(beaverItem);
              beaverItem.innerHTML = text;
              beaverItem.setAttribute("id", i);
              this.addLocationButton(beaverItem);
+             this.addTrackButton(beaverItem, arr[i].track);
          }
     },
     stringifyBeaver: function(beaverObj){
@@ -41,9 +46,19 @@ var beaverBrowserViewer = {
         locationBtn.innerHTML = "Add Location";
         listItem.appendChild(locationBtn);
     },
-    addTrackButton: function(){
+    addTrackButton: function(listItem, tracking){
         //code here
-       
+       var trackBtn = document.createElement("button");
+       trackBtn.setAttribute("type", "submit");
+       trackBtn.setAttribute("class", "trackButtons");
+       if (tracking){
+           trackBtn.innerHTML = "Untrack";
+       }else{
+           trackBtn.innerHTML = "Track";
+       }
+
+       listItem.appendChild(trackBtn);
+
     },
     untrackAllButton: function(){
         //code here
