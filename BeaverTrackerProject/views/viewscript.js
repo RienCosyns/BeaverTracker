@@ -19,11 +19,7 @@ var beaverBrowserViewer = {
 
          for (var i = 0; i < arr.length; i++){
              var text = this.stringifyBeaver(arr[i]);
-             if (arr[i].track){
-                 text = text + " Tracking.";
-             }else{
-                 text = text + " Not tracking."
-             }
+             
              var beaverItem = document.createElement("li");
              beaverList.appendChild(beaverItem);
              beaverItem.innerHTML = text;
@@ -34,29 +30,36 @@ var beaverBrowserViewer = {
     },
     stringifyBeaver: function(beaverObj){
         var beaverString = "";
-        beaverString = beaverObj.name + "(" + beaverObj.age + "), " + beaverObj.sex + 
-                        ", spotted in " + beaverObj.location.join(", ") + ".";
+        beaverString = "<span>" + beaverObj.name + "(" + beaverObj.age + "), " + beaverObj.sex + 
+                        "</span><span>" + "spotted in: " + beaverObj.location.join(", ") + ".</span><hr>";
         return beaverString;
     },
     addLocationButton: function(listItem){
         //code here
         var locationBtn = document.createElement("button");
+        var icon = document.createElement("i");
+        icon.setAttribute("class", "fa fa-map-marker");
+        icon.setAttribute("aria-hidden", "true");
         locationBtn.setAttribute("type", "submit");
         locationBtn.setAttribute("class", "locationButtons");
-        locationBtn.innerHTML = "Add Location";
+        locationBtn.appendChild(icon);
         listItem.appendChild(locationBtn);
     },
     addTrackButton: function(listItem, tracking){
         //code here
        var trackBtn = document.createElement("button");
+       var icon = document.createElement("i");
        trackBtn.setAttribute("type", "submit");
        trackBtn.setAttribute("class", "trackButtons");
        if (tracking){
-           trackBtn.innerHTML = "Untrack";
+           //trackBtn.innerHTML = "Untrack";
+           icon.setAttribute("class", "fa fa-ban");
        }else{
-           trackBtn.innerHTML = "Track";
+           //trackBtn.innerHTML = "Track";
+           icon.setAttribute("class", "fa fa-binoculars");  
        }
-
+       icon.setAttribute("aria-hidden", "true");
+       trackBtn.appendChild(icon);
        listItem.appendChild(trackBtn);
 
     }

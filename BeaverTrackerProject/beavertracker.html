@@ -6,6 +6,8 @@
         <script type="text/javascript" src="controller/controllerscript.js"></script>
         <script type="text/javascript" src="views/viewscript.js"></script>
         <script type="text/javascript" src="app.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah|Indie+Flower" rel="stylesheet">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="style.css">
         <script>
             window.onload = function(){
@@ -14,19 +16,20 @@
         </script>
     </head>
     <body>
-        <h1>Beaver tracker</h1>
         <form id="myForm" onsubmit="return false;">
             <label for="nameInput">Name: </label>
-            <input type="text" name="nameInput" value="" id="nameInput" placeholder="name">
+            <input type="text" name="nameInput" value="" id="nameInput" placeholder="Beafy" autofocus>
             <label for="ageInput">Age: </label>
-            <input type="text" name="ageInput" value="" id="ageInput" placeholder="Age">
+            <input type="text" name="ageInput" value="" id="ageInput" placeholder="4">
             <label for="sexInput">Sex: </label>
-            <input type="text" name="sexInput" value="" id="sexInput" placeholder="Sex">
+            <input type="text" name="sexInput" value="" id="sexInput" placeholder="Male">
             <label for="locationInput">Location: </label>
-            <input type="text" name="locationInput" value="" id="locationInput" placeholder="Location">
-            <button type="submit" id="addButton">Add Beaver</button>
+            <input type="text" name="locationInput" value="" id="locationInput" placeholder="Beaverton"><br>
+            <button type="submit" id="trackAllButton">Track All</button>
+            <button type="submit" id="addButton"><i class="fa fa-plus" aria-hidden="true"></i></button>
+            <button type="submit" id="untrackAllButton">Untrack All</button>
         </form>
-        <button type="submit" id="trackAllButton">Track All</button>
-        <button type="submit" id="untrackAllButton">Untrack All</button>
+        
+        
     </body>
 </html>

@@ -1,1 +1,116 @@
 /* Whatever makes it nice */
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    /*background-image: url("http://www.theallium.com/wp-content/uploads/2014/05/beaver.jpeg");*/
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-family: 'Gloria Hallelujah', cursive;
+}
+
+#myForm {
+    clear: right;
+    display: inline-block;
+    /*background-color: red;*/
+    /*position: fixed;*/
+    width: 100%;
+    padding: 10px 10px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+#myForm input {
+    border: 5px inset rgba(255, 255, 255, 0.5);
+    border-radius: 5px;
+    outline: none;
+}
+
+#addButton {
+    font-size: 30px;
+    background-color: black;
+    padding: 10px 20px;
+    margin-top: 15px;
+    color: white;
+    border: none;
+    outline: none;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+#addButton:hover {
+    color: black;
+    background-color:gold;
+}
+
+#addButton:focus{
+    transform: translateY(4px);
+}
+
+#myForm input:focus {
+    box-shadow: 0 4px 8px 0 gold, 0 6px 20px 0 gold;
+}
+
+#trackAllButton, #untrackAllButton {
+    border: none;
+    background-color: transparent;
+    outline:none;
+    cursor: pointer;
+    margin: 0 10px;
+    font-family: inherit;
+    font-size: 1.5em;
+}
+
+#trackAllButton:hover, #untrackAllButton:hover {
+    background-color: gold;
+    border-radius: 50%;
+
+}
+
+#trackAllButton:focus, #untrackAllButton:focus {
+    transform: translateY(4px);
+}
+
+#beaverList {
+    width: 50%;
+    height: 500px;
+    margin: 80px auto 20px auto;
+    /*border: 1px solid black;*/
+    list-style: none;
+    font-size: 1.5em;
+    background: radial-gradient(rgba(255, 255, 255, 0.3),transparent);
+    /*background-color: whitesmoke;*/
+    /*opacity: 0.2;*/
+}
+
+#beaverList > li {
+    padding: 10px 0 10px 20px;
+    text-align: center;
+}
+
+#beaverList > li > span {
+    display: block;
+}
+
+#beaverList > li > .locationButtons, #beaverList > li > .trackButtons  {
+    /*width: 50px;*/
+    font-size: 30px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    padding: 0 10px;
+    cursor: pointer;
+    /*position: relative;
+    top: -45px;*/
+}
+
+#beaverList > li > .locationButtons > i, #beaverList > li > .trackButtons > i {
+    text-align: center;
+}
+
+#beaverList > li > .locationButtons:hover, #beaverList > li > .trackButtons:hover {
+    background-color: rgba(255, 200, 0, 1);
+    border-radius: 50%;
+}
