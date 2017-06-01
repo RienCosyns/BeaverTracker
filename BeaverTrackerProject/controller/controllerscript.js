@@ -35,10 +35,20 @@ var beaverEvents = {
                     this.displayBeavers();
                 }
             });
+            handlers.setupEvents();
     },
-    addLocation: function(beaverObj, location){
+    addLocation: function(beaverId, location){
         //code here
-        console.log(beaverApp.addLocation(beaverObj, location));
+        this.modelState.addLocation(beaverId, location, (err) => {
+            if (err){
+                alert("Unknown location");
+            }else{
+                alert("Location added to " + this.modelState.getBeaverById(beaverId).name);
+                this.displayBeavers();
+            }
+        })
+
+        handlers.setupEvents();
 
     },
     toggleTracking: function(beaverObj){
@@ -58,6 +68,8 @@ var beaverEvents = {
 var handlers = {
     setupEvents: function(){
         var addButton = document.getElementById("addButton");
+        var addLocationButton = document.getElementsByClassName("locationButtons");
+
         addButton.onclick = function(){
             var name = document.getElementById("nameInput").value;
             var age = parseInt(document.getElementById("ageInput").value);
@@ -65,6 +77,15 @@ var handlers = {
             var location = document.getElementById("locationInput").value;
             beaverEvents.addBeaver(name,age,sex,location);
             document.getElementById("myForm").reset();
+        }
+
+        for (var i = 0; i < addLocationButton.length; i++){
+            addLocationButton[i].onclick = function(){
+                var locationPrompt = prompt("Please add new location");
+               // console.log(this.parentElement.getAttribute("id"));
+                var id = this.parentElement.getAttribute("id");
+                beaverEvents.addLocation(id, locationPrompt);
+            }
         }
     }
 }

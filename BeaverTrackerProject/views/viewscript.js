@@ -24,6 +24,7 @@ var beaverBrowserViewer = {
              beaverList.appendChild(beaverItem);
              beaverItem.innerHTML = text;
              beaverItem.setAttribute("id", i);
+             this.addLocationButton(beaverItem);
          }
     },
     stringifyBeaver: function(beaverObj){
@@ -32,9 +33,13 @@ var beaverBrowserViewer = {
                         ", spotted in " + beaverObj.location.join(", ") + ".";
         return beaverString;
     },
-    addLocationButton: function(){
+    addLocationButton: function(listItem){
         //code here
-        
+        var locationBtn = document.createElement("button");
+        locationBtn.setAttribute("type", "submit");
+        locationBtn.setAttribute("class", "locationButtons");
+        locationBtn.innerHTML = "Add Location";
+        listItem.appendChild(locationBtn);
     },
     addTrackButton: function(){
         //code here
