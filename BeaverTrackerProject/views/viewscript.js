@@ -59,13 +59,5 @@ var beaverBrowserViewer = {
 
        listItem.appendChild(trackBtn);
 
-    },
-    untrackAllButton: function(){
-        //code here
-        
-    },
-    trackAllButton: function(){
-        //code here
-        
     }
 }

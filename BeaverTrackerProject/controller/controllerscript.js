@@ -13,6 +13,7 @@ var beaverEvents = {
         //code here
         var arr = this.modelState.getAll();
         this.viewState.beaverBrowserViewer.displayBeavers(arr);
+        handlers.setupEvents();
     },
     addBeaver: function(name, age, sex, location){
             var beaver = {
@@ -32,10 +33,10 @@ var beaverEvents = {
                     return false;
                 }else{
                     alert("Beaver added");
-                    this.displayBeavers();
                 }
             });
-            handlers.setupEvents();
+
+            this.displayBeavers();
     },
     addLocation: function(beaverId, location){
         //code here
@@ -44,12 +45,9 @@ var beaverEvents = {
                 alert("Unknown location");
             }else{
                 alert("Location added to " + this.modelState.getBeaverById(beaverId).name);
-                this.displayBeavers();
             }
         })
-
-        handlers.setupEvents();
-
+        this.displayBeavers();
     },
     toggleTracking: function(beaverId){
         //code here
@@ -65,9 +63,7 @@ var beaverEvents = {
             }
         });
 
-        this.displayBeavers();
-        handlers.setupEvents();
-        
+        this.displayBeavers();       
     },
     untrackAll: function(){
         //code here
@@ -75,6 +71,7 @@ var beaverEvents = {
             this.modelState.beaverObjects[key].track = false;
         }
         alert("No longer tracking any beavers");
+        this.displayBeavers();
     },
     trackAll: function(){
         //code here
@@ -82,6 +79,7 @@ var beaverEvents = {
             this.modelState.beaverObjects[key].track = true;
         }
         alert("Tracking all beavers");
+        this.displayBeavers();
     }
 }
 
@@ -90,6 +88,8 @@ var handlers = {
         var addButton = document.getElementById("addButton");
         var addLocationButtons = document.getElementsByClassName("locationButtons");
         var trackButtons = document.getElementsByClassName("trackButtons");
+        var trackAllButton = document.getElementById("trackAllButton");
+        var untrackAllButton = document.getElementById("untrackAllButton");
 
         addButton.onclick = function(){
             var name = document.getElementById("nameInput").value;
@@ -114,6 +114,14 @@ var handlers = {
                 var id = this.parentElement.getAttribute("id");
                 beaverEvents.toggleTracking(id);
             }
+        }
+
+        trackAllButton.onclick = function(){
+            beaverEvents.trackAll();
+        }
+
+        untrackAllButton.onclick = function(){
+            beaverEvents.untrackAll();
         }
     }
 }
