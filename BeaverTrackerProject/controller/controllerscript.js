@@ -11,8 +11,8 @@ var beaverEvents = {
     },
     displayBeavers: function(){
         //code here
-        var arr = beaverApp.getAll();
-        beaverViewer.displayBeavers(arr);
+        var arr = this.modelState.getAll();
+        this.viewState.beaverBrowserViewer.displayBeavers(arr);
     },
     addBeaver: function(name, age, sex, location){
             var beaver = {

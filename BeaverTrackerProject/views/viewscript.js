@@ -1,53 +1,28 @@
-// empty viewscript based on the view prompt
-// just console logs for now
-
-var beaverConsoleViewer = {
-    name: "beaverConsoleViewer",
-    displayBeavers: function(arr){
-        //args : nada
-
-        // code here
-        console.log(arr[0], arr[1]);  
-    },
-    stringifyBeaver: function(beaverObj){
-        beaverString = "Billy, 5 years old, male, spotted in Galway";
-
-        //code here
-
-        console.log(beaverString);
-    },
-    addLocationButton: function(){
-        //code here
-        
-    },
-    addTrackButton: function(){
-        //code here
-       
-    },
-    untrackAllButton: function(){
-        //code here
-        
-    },
-    trackAllButton: function(){
-        //code here
-        
-    }
-}
+// browser view version
 
 var beaverBrowserViewer = {
     name: "beaverBrowserViewer",
     displayBeavers: function(arr){
-        //args : nada
 
         // code here
-        console.log(arr[0], arr[1]);  
+         var beaverList = document.createElement("ul");
+         beaverList.setAttribute("id", "beaverList");
+         document.body.appendChild(beaverList);
+
+         for (var i = 0; i < arr.length; i++){
+             var text = this.stringifyBeaver(arr[i]);
+             // console.log(text);
+             var beaverItem = document.createElement("li");
+             beaverList.appendChild(beaverItem);
+             beaverItem.innerHTML = text;
+             beaverItem.setAttribute("id", i);
+         }
     },
     stringifyBeaver: function(beaverObj){
-        beaverString = "Billy, 5 years old, male, spotted in Galway";
-
-        //code here
-
-        console.log(beaverString);
+        var beaverString = "";
+        beaverString = beaverObj.name + "(" + beaverObj.age + "), " + beaverObj.sex + 
+                        ", spotted in " + beaverObj.location.join(", ") + ".";
+        return beaverString;
     },
     addLocationButton: function(){
         //code here

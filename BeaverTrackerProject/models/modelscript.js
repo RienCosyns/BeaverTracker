@@ -29,10 +29,22 @@ var beaverApp = {
     },
     addNew: function(beaver){
         var message = "Success";
+        var err;
         //code here
-        var keys = Object.keys(this.beaverObjects);
-        this.beaverObjects[keys.length] = beaver;
-        console.log(this.beaverObjects);
+        // check if beaver has name, age and sex   
+        //console.log("age: " + beaver.age == "number");
+        if (typeof(beaver.name)  == "string" && typeof(beaver.age) == "number" &&
+            typeof(beaver.sex) == "string"){
+                err = false;
+                this.incrementId();
+                this.beaverObjects[this.nextId] = beaver;
+                //console.log(this.beaverObjects);
+            }else{
+                err = true;
+                message = "Failed";
+            }
+        //console.log(this.beaverObjects);
+        cb(err);
         //return message(Success/failure);
         return message;
     },
