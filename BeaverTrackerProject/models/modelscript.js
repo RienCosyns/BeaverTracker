@@ -27,18 +27,23 @@ var beaverApp = {
         //return array
         return beavers;
     },
-    addNew: function(beaver){
+    addNew: function(beaver, cb){
         var message = "Success";
         var err;
         //code here
         // check if beaver has name, age and sex   
         //console.log("age: " + beaver.age == "number");
-        if (typeof(beaver.name)  == "string" && typeof(beaver.age) == "number" &&
+        if (typeof(beaver.name)  == "string" && !isNaN(beaver.age) &&
             typeof(beaver.sex) == "string"){
-                err = false;
-                this.incrementId();
-                this.beaverObjects[this.nextId] = beaver;
-                //console.log(this.beaverObjects);
+                if (beaver.name.length > 0 && beaver.sex.length > 0){
+                    err = false;
+                    this.incrementId();
+                    this.beaverObjects[this.nextId] = beaver;
+                    //console.log(this.beaverObjects);
+                }else{
+                    err = true;
+                    message = "Failed";
+                }
             }else{
                 err = true;
                 message = "Failed";

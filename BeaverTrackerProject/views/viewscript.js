@@ -4,8 +4,16 @@ var beaverBrowserViewer = {
     name: "beaverBrowserViewer",
     displayBeavers: function(arr){
 
-        // code here
-         var beaverList = document.createElement("ul");
+        // remove the list
+        if (document.getElementById("beaverList") !== null){
+        
+            var beaverList = document.getElementById("beaverList");
+            document.body.removeChild(beaverList);
+        }
+
+        // recreate the list after every call
+         
+         beaverList = document.createElement("ul");
          beaverList.setAttribute("id", "beaverList");
          document.body.appendChild(beaverList);
 

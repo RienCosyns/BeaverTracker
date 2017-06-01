@@ -3,4 +3,5 @@ function init(){
     beaverEvents.getViewState(beaverBrowserViewer);
     // Display beavers
     beaverEvents.displayBeavers();
+    handlers.setupEvents();
 }

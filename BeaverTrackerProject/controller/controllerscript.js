@@ -21,13 +21,20 @@ var beaverEvents = {
             sex: sex,
             location: [],
             track: true
-            }
+        }
+           //console.log(beaver);
             if (location !== undefined){
-                beaver.location.push(location);
+                beaver.location[0] = location;
             }
-            console.log(beaver);
-            beaverApp.addNew(beaver);
-            this.displayBeavers();
+            this.modelState.addNew(beaver, (err) =>{
+                if (err){
+                    alert("Invalid arguments");
+                    return false;
+                }else{
+                    alert("Beaver added");
+                    this.displayBeavers();
+                }
+            });
     },
     addLocation: function(beaverObj, location){
         //code here
@@ -45,5 +52,19 @@ var beaverEvents = {
     trackAll: function(){
         //code here
         console.log("Tracking");
+    }
+}
+
+var handlers = {
+    setupEvents: function(){
+        var addButton = document.getElementById("addButton");
+        addButton.onclick = function(){
+            var name = document.getElementById("nameInput").value;
+            var age = parseInt(document.getElementById("ageInput").value);
+            var sex = document.getElementById("sexInput").value;
+            var location = document.getElementById("locationInput").value;
+            beaverEvents.addBeaver(name,age,sex,location);
+            document.getElementById("myForm").reset();
+        }
     }
 }
