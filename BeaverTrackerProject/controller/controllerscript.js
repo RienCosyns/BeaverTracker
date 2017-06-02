@@ -29,40 +29,41 @@ var beaverEvents = {
             }
             this.modelState.addNew(beaver, (err) =>{
                 if (err){
-                    alert("Invalid arguments");
+                    this.modelState.messages.push("Invalid arguments");
                     return false;
                 }else{
-                    alert("Beaver added");
+                    this.modelState.messages.push("Beaver " + beaver.name + " added.");
                 }
             });
-
+            this.viewState.beaverBrowserViewer.displayMessages(this.modelState.messages);
             this.displayBeavers();
     },
     addLocation: function(beaverId, location){
         //code here
         this.modelState.addLocation(beaverId, location, (err) => {
             if (err){
-                alert("Unknown location");
+                this.modelState.messages.push("Unknown location");
             }else{
-                alert("Location added to " + this.modelState.getBeaverById(beaverId).name);
+                this.modelState.messages.push("Location added to " + this.modelState.getBeaverById(beaverId).name);
             }
         })
+        this.viewState.beaverBrowserViewer.displayMessages(this.modelState.messages);
         this.displayBeavers();
     },
     toggleTracking: function(beaverId){
         //code here
         this.modelState.tracking(beaverId, (err) =>{
             if (err){
-                alert("Beaver doesn't exist");
+                this.modelState.messages.push("Beaver doesn't exist");
             }else{
                 if (this.modelState.beaverObjects[beaverId].track){
-                    alert("Tracking " + this.modelState.getBeaverById(beaverId).name);
+                    this.modelState.messages.push("Tracking " + this.modelState.getBeaverById(beaverId).name);
                 }else{
-                    alert("No longer tracking " + this.modelState.getBeaverById(beaverId).name);
+                    this.modelState.messages.push("No longer tracking " + this.modelState.getBeaverById(beaverId).name);
                 }
             }
         });
-
+        this.viewState.beaverBrowserViewer.displayMessages(this.modelState.messages);
         this.displayBeavers();       
     },
     untrackAll: function(){
@@ -70,7 +71,8 @@ var beaverEvents = {
         for (key in this.modelState.beaverObjects){
             this.modelState.beaverObjects[key].track = false;
         }
-        alert("No longer tracking any beavers");
+        this.modelState.messages.push("No longer tracking any beavers");
+        this.viewState.beaverBrowserViewer.displayMessages(this.modelState.messages);
         this.displayBeavers();
     },
     trackAll: function(){
@@ -78,7 +80,8 @@ var beaverEvents = {
         for (key in this.modelState.beaverObjects){
             this.modelState.beaverObjects[key].track = true;
         }
-        alert("Tracking all beavers");
+        this.modelState.messages.push("Tracking all beavers");
+        this.viewState.beaverBrowserViewer.displayMessages(this.modelState.messages);
         this.displayBeavers();
     }
 }

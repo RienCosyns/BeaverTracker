@@ -62,5 +62,24 @@ var beaverBrowserViewer = {
        trackBtn.appendChild(icon);
        listItem.appendChild(trackBtn);
 
+    },
+    displayMessages: function(messagesArray){
+        // remove the list
+        if (document.getElementById("messageBoard") !== null){
+            var messageBoard = document.getElementById("messageBoard");
+            document.getElementById("aside").removeChild(messageBoard);
+        }
+
+         messageBoard = document.createElement("ul");
+         messageBoard.setAttribute("id", "messageBoard");
+         document.getElementById("aside").appendChild(messageBoard);
+
+         for (var i = 0; i < messagesArray.length; i++){
+             var text = messagesArray[i];
+             
+             var messageItem = document.createElement("li");
+             messageBoard.appendChild(messageItem);
+             messageItem.innerHTML = text;
+         }
     }
 }

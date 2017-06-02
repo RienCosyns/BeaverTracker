@@ -11,6 +11,7 @@ var beaverApp = {
         track: true
         }
     },
+    messages: [],
     incrementId: function(){
         this.nextId++;
     },
@@ -94,5 +95,5 @@ var beaverApp = {
         //return message(Success/failure);
         cb(err);
         return message;
-    }   
+    } 
 }
