@@ -83,6 +83,25 @@ var beaverEvents = {
         this.modelState.messages.push("Tracking all beavers");
         this.viewState.beaverBrowserViewer.displayMessages(this.modelState.messages);
         this.displayBeavers();
+    },
+    getGeoLocation: function(){
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(this.showPosition);
+        }   
+    },
+    showPosition: function(position) {
+        var geoCoder = new google.maps.Geocoder();
+        var coordinates = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+        if (geoCoder){
+            geoCoder.geocode({'latLng': coordinates}, function(results, status){
+                if (status == google.maps.GeocoderStatus.OK){
+                    document.getElementById("geoLocation").innerHTML = (results[0].formatted_address);
+                }else{
+                    alert("Geocoding failed: " + status);
+                }
+            })
+        }
     }
 }
 

@@ -79,25 +79,21 @@ body {
 /*Message board*/
 
 aside {
-    float: left;
-    position: absolute;
-    width: 20%;
-    height: 150px;
+    font-family: 'VT323', monospace;
+    width: 50%;
+    height: 100px;
     overflow-y: auto;
     /*border: 1px dashed black;*/
-    transform: skew(170deg, 170deg);
     background-color: black;
     color: rgb(0, 200, 0);
-    margin-left:25px;
     padding: 25px;
+    margin: 0 auto;
     /*box-shadow: 5px -5px 5px green, -5px 5px 5px green;*/
 }
 
 #messageBoard {
-    list-style: none;
-    text-align: center;
-    font-family: 'VT323', monospace;
-    text-align: left;
+    list-style-type: none;
+    padding: 0;
     transform: rotateY(40deg);
     line-height: 1.5;
     font-size: 18px;
@@ -105,12 +101,15 @@ aside {
     text-shadow: 2px 2px black;
 }
 
+#messageBoard li {
+    display: block;
+    text-align: center;
+}
 
 /* Beaver List*/
 
 #beaverList {
     width: 50%;
-    height: 500px;
     margin: 60px auto 20px auto;
     /*border: 1px solid black;*/
     list-style: none;

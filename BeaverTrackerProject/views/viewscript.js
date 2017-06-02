@@ -15,7 +15,8 @@ var beaverBrowserViewer = {
          
          beaverList = document.createElement("ul");
          beaverList.setAttribute("id", "beaverList");
-         document.body.appendChild(beaverList);
+         var messageBoard = document.getElementById("aside");
+         document.body.insertBefore(beaverList, messageBoard);
 
          for (var i = 0; i < arr.length; i++){
              var text = this.stringifyBeaver(arr[i]);

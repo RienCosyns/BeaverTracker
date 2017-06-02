@@ -4,4 +4,5 @@ function init(){
     // Display beavers
     beaverEvents.displayBeavers();
     handlers.setupEvents();
+    beaverEvents.getGeoLocation();
 }
