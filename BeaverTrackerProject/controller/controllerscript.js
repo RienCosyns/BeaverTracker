@@ -90,11 +90,20 @@ var beaverEvents = {
         }   
     },
     showPosition: function(position) {
+        var lat = position.coords.latitude;
+        var lon = position.coords.longitude;
+        var latlon = new google.maps.LatLng(lat, lon);
         var geoCoder = new google.maps.Geocoder();
-        var coordinates = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        var coordinates = {
+            center: latlon,
+            zoom: 15,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+                    };
+        var map = new google.maps.Map(document.getElementById("mapHolder"), coordinates);
+        var marker = new google.maps.Marker({position:latlon,map:map,title:"You are here!"});
 
         if (geoCoder){
-            geoCoder.geocode({'latLng': coordinates}, function(results, status){
+            geoCoder.geocode({'latLng': latlon}, function(results, status){
                 if (status == google.maps.GeocoderStatus.OK){
                     document.getElementById("geoLocation").innerHTML = (results[0].formatted_address);
                 }else{

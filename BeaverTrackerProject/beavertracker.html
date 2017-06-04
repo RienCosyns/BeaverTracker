@@ -2,7 +2,8 @@
 <html>
     <head>
         <title>Beaver Tracker</title>
-        <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+        <script async defer src="http://maps.google.com/maps/api/js?sensor=false&key=AIzaSyDz_TOxl4DMmsW8VAVNE10aoEf5AIF8z10" type="text/javascript"></script>
+        <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDz_TOxl4DMmsW8VAVNE10aoEf5AIF8z10&callback=myMap"></script>-->
         <script type="text/javascript" src="models/modelscript.js"></script>
         <script type="text/javascript" src="controller/controllerscript.js"></script>
         <script type="text/javascript" src="views/viewscript.js"></script>
@@ -31,6 +32,7 @@
             <button type="submit" id="addButton"><i class="fa fa-plus" aria-hidden="true"></i></button>
             <button type="submit" id="untrackAllButton">Untrack All</button>
         </form>
+        <div id="mapHolder" style="width: 25%; height: 200px; margin: 0 auto;"></div>
         <aside id="aside">
             <p id="geoLocation"></p>
         </aside>
