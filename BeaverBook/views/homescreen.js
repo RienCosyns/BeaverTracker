@@ -44,6 +44,10 @@ var homeScreen = {
         trackAllButton.setAttribute("id", "trackAllButton");
         untrackAllButton.setAttribute("id", "untrackAllButton");
 
+        addButton.setAttribute("class", "buttons");
+        trackAllButton.setAttribute("class", "buttons");
+        untrackAllButton.setAttribute("class", "buttons");
+
         addButton.innerHTML = "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i>";
         trackAllButton.innerHTML = "Track All";
         untrackAllButton.innerHTML = "Untrack All";
@@ -113,7 +117,7 @@ var homeScreen = {
         icon.setAttribute("class", "fa fa-map-marker");
         icon.setAttribute("aria-hidden", "true");
         locationBtn.setAttribute("type", "submit");
-        locationBtn.setAttribute("class", "locationButtons");
+        locationBtn.setAttribute("class", "locationButtons buttons");
         locationBtn.appendChild(icon);
         listItem.appendChild(locationBtn);
     },
@@ -122,7 +126,7 @@ var homeScreen = {
        var trackBtn = document.createElement("button");
        var icon = document.createElement("i");
        trackBtn.setAttribute("type", "submit");
-       trackBtn.setAttribute("class", "trackButtons");
+       trackBtn.setAttribute("class", "trackButtons buttons");
        if (tracking){
            //trackBtn.innerHTML = "Untrack";
            icon.setAttribute("class", "fa fa-ban");
@@ -138,7 +142,7 @@ var homeScreen = {
     addProfileButton: function(listItem){
         var profileBtn = document.createElement("button");
         profileBtn.setAttribute("type", "submit");
-        profileBtn.setAttribute("class", "profileButtons");
+        profileBtn.setAttribute("class", "profileButtons buttons");
         profileBtn.innerHTML= "<i class=\"fa fa-user\" aria-hidden=\"true\"></i>";
 
         listItem.appendChild(profileBtn);

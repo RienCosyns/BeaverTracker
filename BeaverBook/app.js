@@ -11,6 +11,7 @@
 function init(){
     homeScreen.createHomePage();
     beaverEvents.addModel(beaverApp);
+    beaverEvents.addModel(beaverRelations);
     beaverEvents.getViewState(homeScreen);
     beaverEvents.getViewState(profileView);
     beaverEvents.activeView = homeScreen.name;

@@ -1,6 +1,7 @@
 // dummy beaverApp object based on the prompt
 
 var beaverApp = {
+    name: "beaverApp",
     nextId: 0,
     beaverObjects: {
         0 : {
@@ -8,14 +9,48 @@ var beaverApp = {
         age: 5,
         sex: "male",
         location: ["Galway"],
-        track: true
+        track: true,
+        imagesrc: "images/beaver_0.jpg"
     },
         1: {
             name: "Beaverly",
             age: 4,
             sex: "female",
             location: ["Paris"],
-            track: true
+            track: true,
+            imagesrc: "images/beaver_1.jpg"
+        },
+        2: {
+            name: "Beafy",
+            age: 7,
+            sex: "Other",
+            location: ["Beaverton"],
+            track: false,
+            imagesrc: "images/beaver_2.jpg"
+        },
+        3: {
+            name: "Beafster",
+            age: 2,
+            sex: "Male",
+            location: ["Beaver County"],
+            track: true,
+            imagesrc: "images/beaver_3.jpg"
+        },
+        4: {
+            name: "Ricardp",
+            age: 9,
+            sex: "Male",
+            location: ["Rome"],
+            track: false,
+            imagesrc: "images/beaver_4.jpg"
+        },
+        5: {
+            name: "Beavonda",
+            age: 7,
+            sex: "Female",
+            location: ["Portland"],
+            track: false,
+            imagesrc: "images/beaver_5.jpg"
         }
     },
     message: "",

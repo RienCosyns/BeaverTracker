@@ -1,14 +1,16 @@
 var profileView = {
     name: "profileView",
-    createProfilePage(beaver){
+    createProfilePage(beaver, arr1, arr2){
         //empty the home view
         document.body.removeChild(document.getElementById("myForm"));
         document.body.removeChild(document.getElementById("beaverList"));
         document.body.removeChild(document.getElementById("map"));
         document.body.removeChild(document.getElementById("aside"));
-
+        
+        this.displayAll(arr1);
         this.displayProfile(beaver);
-
+        this.displayBuddies(arr2);
+        
         //document.getElementById("beaverList").style
     },
     displayProfile: function(beaver){
@@ -18,50 +20,68 @@ var profileView = {
         var beaverProfile = document.createElement("ul");
 
         beaverDiv.setAttribute("class", "profile");
-        profilePic.setAttribute("src", "images/Paddy.jpg");
+        profilePic.setAttribute("src", beaver.imagesrc);
         profilePic.setAttribute("class", "profilePic");
         beaverProfile.setAttribute("class", "profileList");
         
         for (keys in beaver){
-            var item = document.createElement("li");
-            item.innerHTML = keys + ": " + beaver[keys];
-            var editButton = document.createElement("button");
-            editButton.setAttribute("class", "buttons");
-            editButton.setAttribute("type", "submit");
-            editButton.innerHTML = "<i class=\"fa fa-pencil\" aria-hidden=\"true\"></i>";
-            item.appendChild(editButton);
-            beaverProfile.appendChild(item);
+            if (keys !== "track" && keys !== "imagesrc"){
+                var item = document.createElement("li");
+                item.innerHTML = keys + ": " + beaver[keys];
+                var editButton = document.createElement("button");
+                editButton.setAttribute("class", "buttons");
+                editButton.setAttribute("type", "submit");
+                editButton.innerHTML = "<i class=\"fa fa-pencil\" aria-hidden=\"true\"></i>";
+                item.appendChild(editButton);
+                beaverProfile.appendChild(item);
+            }
+            
         }
         beaverDiv.appendChild(profilePic);
         beaverDiv.appendChild(beaverProfile);
         document.body.appendChild(beaverDiv);
     },
     displayAll: function(arr){
-        // remove the list
-        if (document.getElementById("beaverList") !== null){
-        
-            var beaverList = document.getElementById("beaverList");
-            document.body.removeChild(beaverList);
+        // remove the list if it already exists
+        if (document.getElementById("beaverGallery") !== null){
+            document.body.removeChild(document.getElementById("beaverGallery"));
         }
+        //recreate it
+        var gallery = document.createElement("div");
+        gallery.setAttribute("id", "beaverGallery");
+        gallery.setAttribute("class", "allGallery");
+        for (var i = 0; i < arr.length;i++){
+            var img = document.createElement("img");
+            img.setAttribute("src", arr[i].imagesrc);
+            img.setAttribute("class","pics");
+            gallery.appendChild(img);
+        }
+        document.body.appendChild(gallery); 
+    },
+    displayBuddies: function(arr){
+        // remove the list if it already exists
+        if (document.getElementById("buddyGalery") !== null){
+            document.body.removeChild(document.getElementById("buddyGalery"));
+        }
+        //recreate it
+        var buddyGallery = document.createElement("div");
+        buddyGallery.setAttribute("id", "buddyGallery");
+        buddyGallery.setAttribute("class", "gallery");
 
-        // recreate the list after every call
-         beaverList = document.createElement("ul");
-         beaverList.setAttribute("id", "beaverList");
-        //  var map = document.getElementById("map");
-        //  document.body.insertBefore(beaverList, map);
+        for (var i = 0; i < arr.length;i++){
+            var img = document.createElement("img");
+            img.setAttribute("src", arr[i].imagesrc);
+            img.setAttribute("class","pics");
+            buddyGallery.appendChild(img);
+        }
+        document.body.appendChild(buddyGallery);
 
-         for (var i = 0; i < arr.length; i++){
-             var text = this.stringifyBeaver(arr[i]);
-             
-             var beaverItem = document.createElement("li");
-             beaverList.appendChild(beaverItem);
-             beaverItem.innerHTML = text;
-             beaverItem.setAttribute("id", i);
-             this.addLocationButton(beaverItem);
-             this.addTrackButton(beaverItem, arr[i].track);
-             this.addProfileButton(beaverItem);
-             this.createInput(beaverItem);
-         }
+    },
+    stringifyBeaver: function(beaverObj){
+        var beaverString = "";
+        beaverString = "<span>" + beaverObj.name + "(" + beaverObj.age + "), " + beaverObj.sex + 
+                        "</span><span>" + "spotted in: " + beaverObj.location.join(", ") + ".</span><hr>";
+        return beaverString;
     },
     displayRelation: function(){
 

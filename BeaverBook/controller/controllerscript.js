@@ -5,14 +5,14 @@ var beaverEvents = {
     viewState: {},
     activeView: "",
     addModel: function(model){
-        this.modelState = model;
+        this.modelState[model.name] = model;
     },
     getViewState: function(view){
         this.viewState[view.name] = view;
     },
     displayBeavers: function(){
         //code here
-        var arr = this.modelState.getAll();
+        var arr = this.modelState.beaverApp.getAll();
         this.viewState.homeScreen.displayBeavers(arr);
         handlers.setupEvents();
     },
@@ -28,60 +28,60 @@ var beaverEvents = {
         if (location !== undefined){
             beaver.location[0] = location;
         }
-        this.modelState.addNew(beaver, (err) =>{
+        this.modelState.beaverApp.addNew(beaver, (err) =>{
             if (err){
-                this.modelState.message = "Invalid arguments";
+                this.modelState.beaverApp.message = "Invalid arguments";
             }else{
-                this.modelState.message = "Beaver " + beaver.name + " added.";
+                this.modelState.beaverApp.message = "Beaver " + beaver.name + " added.";
             }
         });
-        this.viewState.homeScreen.displayMessages(this.modelState.message);
+        this.viewState.homeScreen.displayMessages(this.modelState.beaverApp.message);
         this.displayBeavers();
     },
     addLocation: function(beaverId, location){
         //code here
-        this.modelState.addLocation(beaverId, location, (err) => {
+        this.modelState.beaverApp.addLocation(beaverId, location, (err) => {
             if (err){
-                this.modelState.message = "Unknown location";
+                this.modelState.beaverApp.message = "Unknown location";
             }else{
-                this.modelState.message = "Location added to " + this.modelState.getBeaverById(beaverId).name;
+                this.modelState.beaverApp.message = "Location added to " + this.modelState.beaverApp.getBeaverById(beaverId).name;
             }
         })
-        this.viewState.homeScreen.displayMessages(this.modelState.message);
+        this.viewState.homeScreen.displayMessages(this.modelState.beaverApp.message);
         this.displayBeavers();
     },
     toggleTracking: function(beaverId){
         //code here
-        this.modelState.tracking(beaverId, (err) =>{
+        this.modelState.beaverApp.tracking(beaverId, (err) =>{
             if (err){
-                this.modelState.message = "Beaver doesn't exist";
+                this.modelState.beaverApp.message = "Beaver doesn't exist";
             }else{
-                if (this.modelState.beaverObjects[beaverId].track){
-                    this.modelState.message = "Tracking " + this.modelState.getBeaverById(beaverId).name;
+                if (this.modelState.beaverApp.beaverObjects[beaverId].track){
+                    this.modelState.beaverApp.message = "Tracking " + this.modelState.beaverApp.getBeaverById(beaverId).name;
                 }else{
-                    this.modelState.message = "No longer tracking " + this.modelState.getBeaverById(beaverId).name;
+                    this.modelState.beaverApp.message = "No longer tracking " + this.modelState.beaverApp.getBeaverById(beaverId).name;
                 }
             }
         });
-        this.viewState.homeScreen.displayMessages(this.modelState.message);
+        this.viewState.homeScreen.displayMessages(this.modelState.beaverApp.message);
         this.displayBeavers();       
     },
     untrackAll: function(){
         //code here
-        for (key in this.modelState.beaverObjects){
-            this.modelState.beaverObjects[key].track = false;
+        for (key in this.modelState.beaverApp.beaverObjects){
+            this.modelState.beaverApp.beaverObjects[key].track = false;
         }
-        this.modelState.message = "No longer tracking any beavers";
-        this.viewState.homeScreen.displayMessages(this.modelState.message);
+        this.modelState.beaverApp.message = "No longer tracking any beavers";
+        this.viewState.homeScreen.displayMessages(this.modelState.beaverApp.message);
         this.displayBeavers();
     },
     trackAll: function(){
         //code here
-        for (key in this.modelState.beaverObjects){
-            this.modelState.beaverObjects[key].track = true;
+        for (key in this.modelState.beaverApp.beaverObjects){
+            this.modelState.beaverApp.beaverObjects[key].track = true;
         }
-        this.modelState.message = "Tracking all beavers";
-        this.viewState.homeScreen.displayMessages(this.modelState.message);
+        this.modelState.beaverApp.message = "Tracking all beavers";
+        this.viewState.homeScreen.displayMessages(this.modelState.beaverApp.message);
         this.displayBeavers();
     },
     getGeoLocation: function(){
@@ -140,8 +140,10 @@ var handlers = {
                 var id = this.parentElement.getAttribute("id");
                 // Move to profile
                 beaverEvents.changeView();
-                var beaver = beaverEvents.modelState.getBeaverById(id);
-                beaverEvents.viewState.profileView.createProfilePage(beaver);
+                var beaver = beaverEvents.modelState.beaverApp.getBeaverById(id);
+                var beaversArray = beaverEvents.modelState.beaverApp.getAll();
+                var buddies = beaverEvents.modelState.beaverRelations.getBuddies(id);
+                beaverEvents.viewState.profileView.createProfilePage(beaver, beaversArray, buddies);
             }
         }
 
