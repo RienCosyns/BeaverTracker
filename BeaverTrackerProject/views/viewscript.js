@@ -27,7 +27,7 @@ var beaverBrowserViewer = {
              beaverItem.setAttribute("id", i);
              this.addLocationButton(beaverItem);
              this.addTrackButton(beaverItem, arr[i].track);
-             this.createMap(beaverItem);
+             this.createInput(beaverItem);
          }
     },
     stringifyBeaver: function(beaverObj){
@@ -111,11 +111,13 @@ var beaverBrowserViewer = {
             })
         }
     },
-    createMap: function(item){
-        var map = document.createElement("div");
+    createInput: function(item){
+        var inputLocation = document.createElement("input");
 
-        map.setAttribute("class", "map collapsed");
+        inputLocation.setAttribute("class", "locationInput");
+        inputLocation.setAttribute("type", "text");
+        inputLocation.style.display = "none";
 
-        item.appendChild(map);
+        item.appendChild(inputLocation);
     }
 }

@@ -98,7 +98,7 @@ var handlers = {
         var trackAllButton = document.getElementById("trackAllButton");
         var untrackAllButton = document.getElementById("untrackAllButton");
         var mapButton = document.getElementById("mapButton");
-        var mapButtons = document.getElementsByClassName("mapButton");
+        var locationInput = document.getElementsByClassName("locationInput");
 
         addButton.onclick = function(){
             var name = document.getElementById("nameInput").value;
@@ -112,11 +112,21 @@ var handlers = {
         for (var i = 0; i < addLocationButtons.length; i++){
             addLocationButtons[i].onclick = function(){
                 //check if map is displayed
-                var locationPrompt = prompt("Please add new location");
+                //var locationPrompt = prompt("Please add new location");
+                var listItem = this.parentElement;
+                if (listItem.getElementsByClassName("locationInput")[0].style.display == "none"){
+                    listItem.getElementsByClassName("locationInput")[0].style.display = "block";
+                }else{
+                    listItem.getElementsByClassName("locationInput")[0].style.display = "none";
+                }
+                
                // console.log(this.parentElement.getAttribute("id"));
-                var id = this.parentElement.getAttribute("id");
-                beaverEvents.addLocation(id, locationPrompt);  
+               // beaverEvents.addLocation(id, locationPrompt);  
             }
+        }
+
+        for (var i = 0; i < locationInput.length;i++){
+            locationInput[i].oncommand
         }
 
         for (var i = 0; i < trackButtons.length;i++){

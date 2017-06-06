@@ -173,6 +173,9 @@ hr:before{
     border-radius: 20px
 }
 
+/*.locationInput {
+    display: none;
+}*/
 /* Map */
 
 #map {
@@ -181,10 +184,6 @@ hr:before{
 
 #mapHolder {
     margin: 10px auto;
-}
-
-.map {
-    text-align: center;
 }
 
 .collapsed {
@@ -209,16 +208,6 @@ hr:before{
     cursor: pointer;
 }
 
-.mapButton {
-    width: 205px;
-    margin: 0 auto;
-    background-color: transparent;
-    font-family: inherit; 
-    border: none;
-    outline: none;  
-    font-size: larger;  
-    cursor: pointer;
-}
 
 /* Animation */
 
