@@ -138,10 +138,10 @@ var handlers = {
         for (var i = 0; i < profileButtons.length;i++){
             profileButtons[i].onclick = function(){
                 var id = this.parentElement.getAttribute("id");
-                alert("profile clicked");
-                // Move to profile page  
+                // Move to profile
                 beaverEvents.changeView();
-                beaverEvents.viewState.profileView.displayBeaver();
+                var beaver = beaverEvents.modelState.getBeaverById(id);
+                beaverEvents.viewState.profileView.createProfilePage(beaver);
             }
         }
 

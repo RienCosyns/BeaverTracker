@@ -7,6 +7,7 @@ var homeScreen = {
         // add form and children
         var form = document.createElement("form");
         form.setAttribute("id", "myForm");
+        form.setAttribute("class", "addForm");
         form.setAttribute("onsubmit", "return false;");
         //labels and inputs
         var formLabels = ["nameLabel", "ageLabel", "sexLabel", "locationLabel"];
@@ -81,7 +82,6 @@ var homeScreen = {
         }
 
         // recreate the list after every call
-         
          beaverList = document.createElement("ul");
          beaverList.setAttribute("id", "beaverList");
          var map = document.getElementById("map");
