@@ -28,13 +28,17 @@
             <input type="text" name="sexInput" value="" id="sexInput" placeholder="Male">
             <label for="locationInput">Location: </label>
             <input type="text" name="locationInput" value="" id="locationInput" placeholder="Beaverton"><br>
-            <button type="submit" id="trackAllButton">Track All</button>
-            <button type="submit" id="addButton"><i class="fa fa-plus" aria-hidden="true"></i></button>
-            <button type="submit" id="untrackAllButton">Untrack All</button>
+            <div id="buttons">
+                <button type="submit" id="trackAllButton">Track All</button>
+                <button type="submit" id="addButton"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                <button type="submit" id="untrackAllButton">Untrack All</button>
+            </div>
         </form>
-        <div id="mapHolder" style="width: 25%; height: 200px; margin: 0 auto;"></div>
+        <div class="divider"></div>
         <aside id="aside">
-            <p id="geoLocation"></p>
         </aside>
+        <div id="map">
+            <div id="mapHolder" class="collapsed"></div>
+        </div>
     </body>
 </html>

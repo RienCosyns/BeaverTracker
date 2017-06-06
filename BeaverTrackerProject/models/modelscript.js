@@ -11,7 +11,7 @@ var beaverApp = {
         track: true
         }
     },
-    messages: [],
+    message: "",
     incrementId: function(){
         this.nextId++;
     },

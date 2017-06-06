@@ -10,6 +10,7 @@ body {
     background-size: cover;
     background-repeat: no-repeat;*/
     font-family: 'Gloria Hallelujah', cursive;
+    background-color: #eee;
 }
 
 /* Form layout*/
@@ -17,7 +18,7 @@ body {
 #myForm {
     clear: right;
     display: inline-block;
-    /*background-color: red;*/
+    background-color: #FFD700;
     /*position: fixed;*/
     width: 100%;
     padding: 20px 10px;
@@ -31,11 +32,14 @@ body {
     outline: none;
 }
 
+#buttons {
+    margin-top: 50px;
+}
+
 #addButton {
     font-size: 30px;
     background-color: black;
     padding: 10px 20px;
-    margin-top: 25px;
     color: white;
     border: none;
     outline: none;
@@ -45,7 +49,7 @@ body {
 
 #addButton:hover {
     color: black;
-    background-color:gold;
+    background-color:#1000FF;
 }
 
 #addButton:focus{
@@ -53,7 +57,7 @@ body {
 }
 
 #myForm input:focus {
-    box-shadow: 0 4px 8px 0 gold, 0 6px 20px 0 gold;
+    box-shadow: 0 4px 8px 0 #1000FF, 0 6px 20px 0 #1000FF;
 }
 
 #trackAllButton, #untrackAllButton {
@@ -67,7 +71,7 @@ body {
 }
 
 #trackAllButton:hover, #untrackAllButton:hover {
-    background-color: gold;
+    background-color: #1000FF;
     border-radius: 50%;
 
 }
@@ -76,44 +80,46 @@ body {
     transform: translateY(4px);
 }
 
+/*.divider {
+    height: 20px;
+    background: linear-gradient(#FFD700, #eee);
+}*/
+
 /*Message board*/
 
 aside {
     font-family: 'VT323', monospace;
     width: 50%;
-    height: 100px;
+    height: 50px;
     overflow-y: auto;
     /*border: 1px dashed black;*/
-    background-color: black;
-    color: rgb(0, 200, 0);
-    padding: 25px;
+    background-color: transparent;
     margin: 0 auto;
+    text-align: center;
     /*box-shadow: 5px -5px 5px green, -5px 5px 5px green;*/
 }
 
 #messageBoard {
-    list-style-type: none;
-    padding: 0;
-    transform: rotateY(40deg);
-    line-height: 1.5;
-    font-size: 18px;
+    font-size: 24px;
     letter-spacing: .2em;
-    text-shadow: 2px 2px black;
+    line-height: 50px;
+    color: transparent;
+    border-radius: 10px;
+    animation-name: fade;
+    animation-duration: 3s;
+    animation-iteration-count: 2;
+    animation-direction: alternate;
 }
 
-#messageBoard li {
-    display: block;
-    text-align: center;
-}
 
 /* Beaver List*/
 
 #beaverList {
     width: 50%;
-    margin: 60px auto 20px auto;
+    margin: 10px auto 20px auto;
     /*border: 1px solid black;*/
     list-style: none;
-    font-size: 1.5em;
+    font-size: 1em;
     background: radial-gradient(rgba(255, 255, 255, 0.3),transparent);
     /*background-color: whitesmoke;*/
     /*opacity: 0.2;*/
@@ -144,8 +150,8 @@ aside {
     text-align: center;
 }
 
-#beaverList > li > .locationButtons:hover, #beaverList > li > .trackButtons:hover {
-    background-color: rgba(255, 200, 0, 1);
+#beaverList > li > .locationButtons:hover, #beaverList > li > .trackButtons:hover, #mapButton:hover {
+    background-color: #FFD700;
     border-radius: 50%;
 }
 
@@ -165,4 +171,60 @@ hr:before{
     border-color: black;
     border-width: 0 0 1px 0;
     border-radius: 20px
+}
+
+/* Map */
+
+#map {
+    text-align: center;
+}
+
+#mapHolder {
+    margin: 10px auto;
+}
+
+.map {
+    text-align: center;
+}
+
+.collapsed {
+    width: 50%;
+    height: 0;
+    transition: height 3s ease-in-out;
+}
+
+.expand {
+    height: 400px;
+    /*transition: all 3s ease-in-out;*/
+}
+
+#mapButton {
+    width: 205px;
+    margin: 0 auto;
+    background-color: transparent;
+    font-family: inherit; 
+    border: none;
+    outline: none;  
+    font-size: larger;  
+    cursor: pointer;
+}
+
+.mapButton {
+    width: 205px;
+    margin: 0 auto;
+    background-color: transparent;
+    font-family: inherit; 
+    border: none;
+    outline: none;  
+    font-size: larger;  
+    cursor: pointer;
+}
+
+/* Animation */
+
+@keyframes fade {
+    from {background-color: transparent;
+          color: transparent}
+    to {background-color: #1000FF;
+        color: #FFD700};
 }

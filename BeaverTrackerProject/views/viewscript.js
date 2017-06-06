@@ -15,8 +15,8 @@ var beaverBrowserViewer = {
          
          beaverList = document.createElement("ul");
          beaverList.setAttribute("id", "beaverList");
-         var messageBoard = document.getElementById("aside");
-         document.body.insertBefore(beaverList, messageBoard);
+         var map = document.getElementById("map");
+         document.body.insertBefore(beaverList, map);
 
          for (var i = 0; i < arr.length; i++){
              var text = this.stringifyBeaver(arr[i]);
@@ -27,6 +27,7 @@ var beaverBrowserViewer = {
              beaverItem.setAttribute("id", i);
              this.addLocationButton(beaverItem);
              this.addTrackButton(beaverItem, arr[i].track);
+             this.createMap(beaverItem);
          }
     },
     stringifyBeaver: function(beaverObj){
@@ -64,23 +65,57 @@ var beaverBrowserViewer = {
        listItem.appendChild(trackBtn);
 
     },
-    displayMessages: function(messagesArray){
+    displayMessages: function(message){
         // remove the list
         if (document.getElementById("messageBoard") !== null){
             var messageBoard = document.getElementById("messageBoard");
             document.getElementById("aside").removeChild(messageBoard);
         }
 
-         messageBoard = document.createElement("ul");
+         messageBoard = document.createElement("p");
          messageBoard.setAttribute("id", "messageBoard");
          document.getElementById("aside").appendChild(messageBoard);
 
-         for (var i = 0; i < messagesArray.length; i++){
-             var text = messagesArray[i];
-             
-             var messageItem = document.createElement("li");
-             messageBoard.appendChild(messageItem);
-             messageItem.innerHTML = text;
-         }
+         var text = message;
+         messageBoard.innerHTML = text;
+    
+    },
+    showMapButton: function(){
+        var mapButton = document.createElement("button");
+        var map = document.getElementById("map");
+        mapButton.setAttribute("type", "button");
+        mapButton.setAttribute("id", "mapButton");
+        mapButton.innerHTML = 'Show Current Position';
+        map.insertBefore(mapButton, document.getElementById("mapHolder"));
+        // document.getElementById("mapHolder").style.display = "none";
+    },
+    showPosition: function(position) {
+        var lat = position.coords.latitude;
+        var lon = position.coords.longitude;
+        var myPosition = new google.maps.LatLng(lat, lon);
+        var geoCoder = new google.maps.Geocoder();
+        var coordinates = {
+            center: myPosition,
+            zoom: 15,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+                    };
+        var map = new google.maps.Map(document.getElementById("mapHolder"), coordinates);
+        var marker = new google.maps.Marker({position:myPosition,map:map,title:"You are here!"
+                        });
+
+        if (geoCoder){
+            geoCoder.geocode({'latLng': myPosition}, function(results, status){
+                if (status !== google.maps.GeocoderStatus.OK){
+                    alert("Geocoding failed: " + status);
+                }
+            })
+        }
+    },
+    createMap: function(item){
+        var map = document.createElement("div");
+
+        map.setAttribute("class", "map collapsed");
+
+        item.appendChild(map);
     }
 }

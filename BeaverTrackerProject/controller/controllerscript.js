@@ -16,54 +16,53 @@ var beaverEvents = {
         handlers.setupEvents();
     },
     addBeaver: function(name, age, sex, location){
-            var beaver = {
-            name: name,
-            age: age,
-            sex: sex,
-            location: [],
-            track: true
+        var beaver = {
+        name: name,
+        age: age,
+        sex: sex,
+        location: [],
+        track: true
+    }
+        //console.log(beaver);
+        if (location !== undefined){
+            beaver.location[0] = location;
         }
-           //console.log(beaver);
-            if (location !== undefined){
-                beaver.location[0] = location;
+        this.modelState.addNew(beaver, (err) =>{
+            if (err){
+                this.modelState.message = "Invalid arguments";
+            }else{
+                this.modelState.message = "Beaver " + beaver.name + " added.";
             }
-            this.modelState.addNew(beaver, (err) =>{
-                if (err){
-                    this.modelState.messages.push("Invalid arguments");
-                    return false;
-                }else{
-                    this.modelState.messages.push("Beaver " + beaver.name + " added.");
-                }
-            });
-            this.viewState.beaverBrowserViewer.displayMessages(this.modelState.messages);
-            this.displayBeavers();
+        });
+        this.viewState.beaverBrowserViewer.displayMessages(this.modelState.message);
+        this.displayBeavers();
     },
     addLocation: function(beaverId, location){
         //code here
         this.modelState.addLocation(beaverId, location, (err) => {
             if (err){
-                this.modelState.messages.push("Unknown location");
+                this.modelState.message = "Unknown location";
             }else{
-                this.modelState.messages.push("Location added to " + this.modelState.getBeaverById(beaverId).name);
+                this.modelState.message = "Location added to " + this.modelState.getBeaverById(beaverId).name;
             }
         })
-        this.viewState.beaverBrowserViewer.displayMessages(this.modelState.messages);
+        this.viewState.beaverBrowserViewer.displayMessages(this.modelState.message);
         this.displayBeavers();
     },
     toggleTracking: function(beaverId){
         //code here
         this.modelState.tracking(beaverId, (err) =>{
             if (err){
-                this.modelState.messages.push("Beaver doesn't exist");
+                this.modelState.message = "Beaver doesn't exist";
             }else{
                 if (this.modelState.beaverObjects[beaverId].track){
-                    this.modelState.messages.push("Tracking " + this.modelState.getBeaverById(beaverId).name);
+                    this.modelState.message = "Tracking " + this.modelState.getBeaverById(beaverId).name;
                 }else{
-                    this.modelState.messages.push("No longer tracking " + this.modelState.getBeaverById(beaverId).name);
+                    this.modelState.message = "No longer tracking " + this.modelState.getBeaverById(beaverId).name;
                 }
             }
         });
-        this.viewState.beaverBrowserViewer.displayMessages(this.modelState.messages);
+        this.viewState.beaverBrowserViewer.displayMessages(this.modelState.message);
         this.displayBeavers();       
     },
     untrackAll: function(){
@@ -71,8 +70,8 @@ var beaverEvents = {
         for (key in this.modelState.beaverObjects){
             this.modelState.beaverObjects[key].track = false;
         }
-        this.modelState.messages.push("No longer tracking any beavers");
-        this.viewState.beaverBrowserViewer.displayMessages(this.modelState.messages);
+        this.modelState.message = "No longer tracking any beavers";
+        this.viewState.beaverBrowserViewer.displayMessages(this.modelState.message);
         this.displayBeavers();
     },
     trackAll: function(){
@@ -80,37 +79,14 @@ var beaverEvents = {
         for (key in this.modelState.beaverObjects){
             this.modelState.beaverObjects[key].track = true;
         }
-        this.modelState.messages.push("Tracking all beavers");
-        this.viewState.beaverBrowserViewer.displayMessages(this.modelState.messages);
+        this.modelState.message = "Tracking all beavers";
+        this.viewState.beaverBrowserViewer.displayMessages(this.modelState.message);
         this.displayBeavers();
     },
     getGeoLocation: function(){
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(this.showPosition);
+            navigator.geolocation.getCurrentPosition(this.viewState.beaverBrowserViewer.showPosition);
         }   
-    },
-    showPosition: function(position) {
-        var lat = position.coords.latitude;
-        var lon = position.coords.longitude;
-        var latlon = new google.maps.LatLng(lat, lon);
-        var geoCoder = new google.maps.Geocoder();
-        var coordinates = {
-            center: latlon,
-            zoom: 15,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-                    };
-        var map = new google.maps.Map(document.getElementById("mapHolder"), coordinates);
-        var marker = new google.maps.Marker({position:latlon,map:map,title:"You are here!"});
-
-        if (geoCoder){
-            geoCoder.geocode({'latLng': latlon}, function(results, status){
-                if (status == google.maps.GeocoderStatus.OK){
-                    document.getElementById("geoLocation").innerHTML = (results[0].formatted_address);
-                }else{
-                    alert("Geocoding failed: " + status);
-                }
-            })
-        }
     }
 }
 
@@ -121,6 +97,8 @@ var handlers = {
         var trackButtons = document.getElementsByClassName("trackButtons");
         var trackAllButton = document.getElementById("trackAllButton");
         var untrackAllButton = document.getElementById("untrackAllButton");
+        var mapButton = document.getElementById("mapButton");
+        var mapButtons = document.getElementsByClassName("mapButton");
 
         addButton.onclick = function(){
             var name = document.getElementById("nameInput").value;
@@ -133,10 +111,11 @@ var handlers = {
 
         for (var i = 0; i < addLocationButtons.length; i++){
             addLocationButtons[i].onclick = function(){
+                //check if map is displayed
                 var locationPrompt = prompt("Please add new location");
                // console.log(this.parentElement.getAttribute("id"));
                 var id = this.parentElement.getAttribute("id");
-                beaverEvents.addLocation(id, locationPrompt);
+                beaverEvents.addLocation(id, locationPrompt);  
             }
         }
 
@@ -153,6 +132,20 @@ var handlers = {
 
         untrackAllButton.onclick = function(){
             beaverEvents.untrackAll();
+        }
+
+        mapButton.onclick = function(){
+            // display map if not displayed else undisplay 
+            // and change button text
+            var map = document.getElementById("mapHolder");
+            if (!map.classList.contains("expand")){
+                map.classList.add("expand");
+                beaverEvents.getGeoLocation();
+                mapButton.innerHTML = "Collapse Map";
+            }else{
+                map.classList.remove("expand");
+                mapButton.innerHTML = "Show Current Position";
+            }
         }
     }
 }
