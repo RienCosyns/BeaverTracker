@@ -134,7 +134,7 @@ aside {
     display: block;
 }
 
-#beaverList > li > .locationButtons, #beaverList > li > .trackButtons  {
+#beaverList > li > .locationButtons, #beaverList > li > .trackButtons, #beaverList > li > .profileButtons  {
     /*width: 50px;*/
     font-size: 30px;
     border: none;
@@ -150,7 +150,10 @@ aside {
     text-align: center;
 }
 
-#beaverList > li > .locationButtons:hover, #beaverList > li > .trackButtons:hover, #mapButton:hover {
+#beaverList > li > .locationButtons:hover,
+ #beaverList > li > .trackButtons:hover,
+  #mapButton:hover,
+   #beaverList > li > .profileButtons:hover {
     background-color: #FFD700;
     border-radius: 50%;
 }

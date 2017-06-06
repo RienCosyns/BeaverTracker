@@ -96,6 +96,7 @@ var homeScreen = {
              beaverItem.setAttribute("id", i);
              this.addLocationButton(beaverItem);
              this.addTrackButton(beaverItem, arr[i].track);
+             this.addProfileButton(beaverItem);
              this.createInput(beaverItem);
          }
     },
@@ -133,6 +134,14 @@ var homeScreen = {
        trackBtn.appendChild(icon);
        listItem.appendChild(trackBtn);
 
+    },
+    addProfileButton: function(listItem){
+        var profileBtn = document.createElement("button");
+        profileBtn.setAttribute("type", "submit");
+        profileBtn.setAttribute("class", "profileButtons");
+        profileBtn.innerHTML= "<i class=\"fa fa-user\" aria-hidden=\"true\"></i>";
+
+        listItem.appendChild(profileBtn);
     },
     displayMessages: function(message){
         // remove the list

@@ -12,6 +12,8 @@ function init(){
     homeScreen.createHomePage();
     beaverEvents.addModel(beaverApp);
     beaverEvents.getViewState(homeScreen);
+    beaverEvents.getViewState(profileView);
+    beaverEvents.activeView = homeScreen.name;
     beaverEvents.viewState.homeScreen.showMapButton();
     // Display beavers
     beaverEvents.displayBeavers();

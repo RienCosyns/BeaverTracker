@@ -3,6 +3,7 @@
 var beaverEvents = {
     modelState: {},
     viewState: {},
+    activeView: "",
     addModel: function(model){
         this.modelState = model;
     },
@@ -22,7 +23,7 @@ var beaverEvents = {
         sex: sex,
         location: [],
         track: true
-    }
+        }
         //console.log(beaver);
         if (location !== undefined){
             beaver.location[0] = location;
@@ -87,6 +88,12 @@ var beaverEvents = {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(this.viewState.homeScreen.showPosition);
         }   
+    },
+    changeView: function(){
+        // if homescreen, switch to profile view
+        if (this.activeView == "homeScreen"){
+            this.activeView = "profileView";
+        }
     }
 }
 
@@ -95,6 +102,7 @@ var handlers = {
         var addButton = document.getElementById("addButton");
         var addLocationButtons = document.getElementsByClassName("locationButtons");
         var trackButtons = document.getElementsByClassName("trackButtons");
+        var profileButtons = document.getElementsByClassName("profileButtons");
         var trackAllButton = document.getElementById("trackAllButton");
         var untrackAllButton = document.getElementById("untrackAllButton");
         var mapButton = document.getElementById("mapButton");
@@ -124,6 +132,16 @@ var handlers = {
             trackButtons[i].onclick = function(){
                 var id = this.parentElement.getAttribute("id");
                 beaverEvents.toggleTracking(id);
+            }
+        }
+
+        for (var i = 0; i < profileButtons.length;i++){
+            profileButtons[i].onclick = function(){
+                var id = this.parentElement.getAttribute("id");
+                alert("profile clicked");
+                // Move to profile page  
+                beaverEvents.changeView();
+                beaverEvents.viewState.profileView.displayBeaver();
             }
         }
 
