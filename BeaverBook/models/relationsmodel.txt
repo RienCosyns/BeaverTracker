@@ -1,0 +1,23 @@
+Script that holds the relationships data between beavers
+
+beaverRelations : object
+    properties: 
+        currentId: stores the currentId
+        relRecords: object => relationships between beavers
+            key (id):
+                id: number,
+                beaverIdSender: a beaver id,
+                beaverIdReceiver: a beaver id,
+                messageHistory: an array of strings,
+                isAccepted: true or false
+                status: a string
+    methods:
+        incrementId: 
+        addRelation: adds a relationship record to the object
+        getOthers: get all beavers which are not friends with given beaver id
+        getBuddies: get all beavers which are friends with given beaver id
+
+        TO DO
+        changeStatus:
+        addMessage:
+        deleteRelation

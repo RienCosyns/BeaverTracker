@@ -19,5 +19,5 @@ function init(){
     // Display beavers
     beaverEvents.displayBeavers();
     // beaverEvents.getGeoLocation();
-    handlers.setupEvents();
+    homeScreenHandlers.setupEvents();
 }

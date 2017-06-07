@@ -2,17 +2,19 @@
 
 var beaverApp = {
     name: "beaverApp",
-    nextId: 0,
+    currentId: 5,
     beaverObjects: {
         0 : {
+        id: 0,
         name: "Paddy",
         age: 5,
         sex: "male",
         location: ["Galway"],
         track: true,
         imagesrc: "images/beaver_0.jpg"
-    },
+        },
         1: {
+            id: 1,
             name: "Beaverly",
             age: 4,
             sex: "female",
@@ -21,6 +23,7 @@ var beaverApp = {
             imagesrc: "images/beaver_1.jpg"
         },
         2: {
+            id: 2,
             name: "Beafy",
             age: 7,
             sex: "Other",
@@ -29,6 +32,7 @@ var beaverApp = {
             imagesrc: "images/beaver_2.jpg"
         },
         3: {
+            id: 3,
             name: "Beafster",
             age: 2,
             sex: "Male",
@@ -37,7 +41,8 @@ var beaverApp = {
             imagesrc: "images/beaver_3.jpg"
         },
         4: {
-            name: "Ricardp",
+            id: 4,
+            name: "Ricardo",
             age: 9,
             sex: "Male",
             location: ["Rome"],
@@ -45,6 +50,7 @@ var beaverApp = {
             imagesrc: "images/beaver_4.jpg"
         },
         5: {
+            id: 5,
             name: "Beavonda",
             age: 7,
             sex: "Female",
@@ -55,18 +61,17 @@ var beaverApp = {
     },
     message: "",
     incrementId: function(){
-        this.nextId++;
+        this.currentId++;
     },
     getBeaverById: function(id){
         return this.beaverObjects[id];
     },
     getBeaverId: function(beaverName){
-        var keys = Object.keys(this.beaverObjects);
-        for (var i = 0; i < keys.length; i++){
-            if (beaverName == this.beaverObjects[keys[i]].name){
-                return keys[i];
+        for (id in this.beaverObjects){
+            if (this.beaverObjects[id].name == beaverName){
+                return this.beaverObjects[id].id;
             }
-        }
+        } 
     },
     getAll: function(){
         // args: /
@@ -90,6 +95,7 @@ var beaverApp = {
                     err = false;
                     this.incrementId();
                     this.beaverObjects[this.nextId] = beaver;
+                    this.beaverObjects[this.nextId].id = this.nextId;
                     //console.log(this.beaverObjects);
                 }else{
                     err = true;

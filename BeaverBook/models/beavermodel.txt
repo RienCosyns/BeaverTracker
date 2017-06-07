@@ -1,0 +1,24 @@
+This script has all data about the individual beavers and methods to manipulate them.
+
+beaverApp: object that holds the data
+    properties:
+        currentId: holds the current ID
+        beaverObjects: objects of beavers 
+            key (id) :
+                id: a number
+                name: a string
+                age: a number
+                sex: a string
+                location: an array of strings
+                track: a boolean
+                imagesrc: a string
+        message: a string that holds messages of user interaction
+    methods:
+        incrementId: incremens the id after each beaver creation
+        getBeaverByID
+        getBeaverId 
+        getAll: stores all beaverObjects in an array
+        addNew: adds new beaver to the beaverObjects
+        addLocation: adds a new location to the beaverObjects location array
+        tracking: toggles track boolean between true and false
+

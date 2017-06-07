@@ -1,0 +1,19 @@
+displays the profile depending on the beaver
+
+profileView
+    methods:
+        createProfilePage: empties the home page and recreates a profile page
+        updateProfilePage: updates an existing profile page
+        displayProfile: builds the beaver profile
+        displayOther: builds the others list
+        displayBuddies: builds the buddies list
+        createRequestButton: creates a friend button 
+        createUnfriendButton: creates an unfriend button 
+
+        TO DO
+        modifyFriendButtons
+        displayRelation:
+        stringifyRelation:
+        createMessageButton:
+        createModifyButton:
+        DisplayMessages

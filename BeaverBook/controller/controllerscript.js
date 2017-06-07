@@ -14,7 +14,7 @@ var beaverEvents = {
         //code here
         var arr = this.modelState.beaverApp.getAll();
         this.viewState.homeScreen.displayBeavers(arr);
-        handlers.setupEvents();
+        homeScreenHandlers.setupEvents();
     },
     addBeaver: function(name, age, sex, location){
         var beaver = {
@@ -93,11 +93,61 @@ var beaverEvents = {
         // if homescreen, switch to profile view
         if (this.activeView == "homeScreen"){
             this.activeView = "profileView";
+            profileHandlers.setupEvents();
         }
+    },
+    updateView: function(id){
+        var beaver = this.modelState.beaverApp.getBeaverById(id);
+        var beaversArray = this.modelState.beaverRelations.getOthers(id);
+        var buddies = this.modelState.beaverRelations.getBuddies(id);
+        this.viewState.profileView.updateProfilePage(beaversArray, buddies, beaver);
+
+        for (key in this.modelState.beaverRelations.relRecords){
+            if (this.modelState.beaverRelations.relRecords[key].beaverIdSender == id){
+                if (this.modelState.beaverRelations.relRecords[key].isAccepted == false){
+                this.viewState.profileView.modifyFriendButton(this.modelState.beaverRelations.relRecords[key].beaverIdReceiver);
+                }
+            } 
+        }
+
+        profileHandlers.setupEvents();
+    },
+    displayProfile: function(id){
+        var beaver = this.modelState.beaverApp.getBeaverById(id);
+        var beaversArray = this.modelState.beaverRelations.getOthers(id);
+        var buddies = this.modelState.beaverRelations.getBuddies(id);
+        this.viewState.profileView.createProfilePage(beaver, beaversArray, buddies);
+        // color and disable icon of beaver with friend request
+        for (key in this.modelState.beaverRelations.relRecords){
+            if (this.modelState.beaverRelations.relRecords[key].beaverIdSender == id){
+                if (this.modelState.beaverRelations.relRecords[key].isAccepted == false){
+                this.viewState.profileView.modifyFriendButton(this.modelState.beaverRelations.relRecords[key].beaverIdReceiver);
+                }
+            } 
+        }
+    },
+    addRelation: function(id1, id2){
+        var relation = {
+            beaverIdSender: id1,
+            beaverIdReceiver: id2,
+            messageHistory: [],
+            isAccepted: false,
+            status: ""
+        }
+        this.modelState.beaverRelations.addRelation(relation, (err) => {
+            if (err){
+                alert("Relationship already exists");
+            }else{
+                alert("Relationship added between: " + this.modelState.beaverApp.beaverObjects[id1].name + 
+                        " and " + this.modelState.beaverApp.beaverObjects[id2].name);
+            }
+        })
+
+        this.updateView(id1);
     }
 }
 
-var handlers = {
+var homeScreenHandlers = {
     setupEvents: function(){
         var addButton = document.getElementById("addButton");
         var addLocationButtons = document.getElementsByClassName("locationButtons");
@@ -106,6 +156,7 @@ var handlers = {
         var trackAllButton = document.getElementById("trackAllButton");
         var untrackAllButton = document.getElementById("untrackAllButton");
         var mapButton = document.getElementById("mapButton");
+        
         //var mapButtons = document.getElementsByClassName("mapButton");
 
         addButton.onclick = function(){
@@ -114,7 +165,6 @@ var handlers = {
             var age = parseInt(document.getElementById("ageInput").value);
             var sex = document.getElementById("sexInput").value;
             var location = document.getElementById("locationInput").value;
-            alert(name, age, sex, location);
             beaverEvents.addBeaver(name,age,sex,location);
             document.getElementById("myForm").reset();
         }
@@ -139,11 +189,8 @@ var handlers = {
             profileButtons[i].onclick = function(){
                 var id = this.parentElement.getAttribute("id");
                 // Move to profile
+                beaverEvents.displayProfile(id);
                 beaverEvents.changeView();
-                var beaver = beaverEvents.modelState.beaverApp.getBeaverById(id);
-                var beaversArray = beaverEvents.modelState.beaverApp.getAll();
-                var buddies = beaverEvents.modelState.beaverRelations.getBuddies(id);
-                beaverEvents.viewState.profileView.createProfilePage(beaver, beaversArray, buddies);
             }
         }
 
@@ -166,6 +213,22 @@ var handlers = {
             }else{
                 map.classList.remove("expand");
                 mapButton.innerHTML = "Show Current Position";
+            }
+        }
+    }
+}
+
+var profileHandlers = {
+    setupEvents: function(){
+        var friendButtons = document.getElementsByClassName("friendButtons");
+        var unfriendButtons = document.getElementsByClassName("unfriendButtons");
+
+        for (var i = 0; i < friendButtons.length;i++){
+            friendButtons[i].onclick = function(){
+                // run the addRelation method
+                var id1 = document.getElementsByClassName("profile")[0].getAttribute("id");
+                var id2 = this.parentElement.getAttribute("id");
+                beaverEvents.addRelation(id1, id2);
             }
         }
     }

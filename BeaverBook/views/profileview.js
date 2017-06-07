@@ -9,19 +9,29 @@ var profileView = {
 
         document.body.classList.add("profileBody");
         
-        this.displayAll(arr1);
+        this.displayOthers(arr1);
         this.displayProfile(beaver);
         this.displayBuddies(arr2);
         
         //document.getElementById("beaverList").style
     },
+    updateProfilePage: function(arr1, arr2, beaver){
+        this.displayOthers(arr1);
+        this.displayProfile(beaver);
+        this.displayBuddies(arr2);
+    },
     displayProfile: function(beaver){
         // create a div and display the beaver
+
+        if (document.getElementById(beaver.id) != null){
+            document.body.removeChild(document.getElementById(beaver.id));
+        }
         var beaverDiv = document.createElement("div");
         var profilePic = document.createElement("img");
         var beaverProfile = document.createElement("ul");
 
         beaverDiv.setAttribute("class", "profile");
+        beaverDiv.setAttribute("id", beaver.id);
         profilePic.setAttribute("src", beaver.imagesrc);
         profilePic.setAttribute("class", "profilePic");
         beaverProfile.setAttribute("class", "profileList");
@@ -43,7 +53,7 @@ var profileView = {
         beaverDiv.appendChild(beaverProfile);
         document.body.appendChild(beaverDiv);
     },
-    displayAll: function(arr){
+    displayOthers: function(arr){
         // remove the list if it already exists
         if (document.getElementById("beaverGallery") !== null){
             document.body.removeChild(document.getElementById("beaverGallery"));
@@ -53,28 +63,42 @@ var profileView = {
         gallery.setAttribute("id", "beaverGallery");
         gallery.setAttribute("class", "allGallery");
         for (var i = 0; i < arr.length;i++){
+            var container = document.createElement("div");
+            container.setAttribute("class", "container");
+            container.setAttribute("id", arr[i].id);
             var img = document.createElement("img");
             img.setAttribute("src", arr[i].imagesrc);
             img.setAttribute("class","pics");
-            gallery.appendChild(img);
+
+            container.appendChild(img)
+            this.createRequestButton(container);
+            gallery.appendChild(container);
         }
         document.body.appendChild(gallery); 
     },
     displayBuddies: function(arr){
         // remove the list if it already exists
-        if (document.getElementById("buddyGalery") !== null){
-            document.body.removeChild(document.getElementById("buddyGalery"));
+        alert(document.getElementById("buddyGallery"));
+        if (document.getElementById("buddyGallery") !== null){
+            var buddyGallery = document.getElementById("buddyGallery");
+            document.body.removeChild(buddyGallery);
         }
         //recreate it
-        var buddyGallery = document.createElement("div");
+        buddyGallery = document.createElement("div");
         buddyGallery.setAttribute("id", "buddyGallery");
         buddyGallery.setAttribute("class", "gallery");
 
         for (var i = 0; i < arr.length;i++){
+            var container = document.createElement("div");
+            container.setAttribute("class", "container");
+            container.setAttribute("id", arr[i].id);
             var img = document.createElement("img");
             img.setAttribute("src", arr[i].imagesrc);
             img.setAttribute("class","pics");
-            buddyGallery.appendChild(img);
+
+            container.appendChild(img);
+            this.createUnfriendButton(container);
+            buddyGallery.appendChild(container);
         }
         document.body.appendChild(buddyGallery);
 
@@ -91,11 +115,21 @@ var profileView = {
     stringifyRelation: function(){
 
     },
-    createRequestButton: function(){
+    createRequestButton: function(item){
+        var friendBtn = document.createElement("button");
+        friendBtn.setAttribute("type", "button");
+        friendBtn.setAttribute("class", "buttons friendButtons");
+        friendBtn.innerHTML = "<i class=\"fa fa-heart\" aria-hidden=\"true\"></i>";
 
+        item.appendChild(friendBtn);
     },
-    createUnfriendButton: function(){
+    createUnfriendButton: function(item){
+        var unfriendBtn = document.createElement("button");
+        unfriendBtn.setAttribute("type", "buttons");
+        unfriendBtn.setAttribute("class", "buttons unfriendButtons");
+        unfriendBtn.innerHTML = "<i class=\"fa fa-chain-broken\" aria-hidden=\"true\"></i>";
 
+        item.appendChild(unfriendBtn);
     },
     createMessageButton: function(){
 
@@ -103,4 +137,11 @@ var profileView = {
     createModifyButton: function(){
 
     },
+    modifyFriendButton: function(id){
+        var button = document.getElementById(id).children[1];
+        var icon = button.children[0];
+        icon.style.color = "red";
+        button.setAttribute("disabled", "disabled");
+
+    }
 }

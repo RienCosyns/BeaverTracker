@@ -1,0 +1,50 @@
+Controller script controls the user interaction
+    => takes data from the model and calls the view
+    => deals with button clicks
+
+BeaverEvents: object containing all methods handling the user interaction
+    Properties
+        ModelState: object containing all data ModelS
+        viewState: object containing all views 
+        activeView: the active view
+    Methods
+        addModel: add model to the ModelState object
+        getViewState: add view to the viewState object
+        displayBeavers: method that gets the data from the model and displays it on the screen
+        addBeaver: adds the beaver to the data model
+        addLocation: adds a new location to an existing beaver
+        toggleTracking: changes the tracking boolean of an existing beaver
+        untrackAll: changes the tracking boolean to false for all beavers
+        trackAll: changes the tracking boolean to true for all beavers 
+        getGeoLocation: gets the current position and calls the view method to display a map of the current position
+        changeView: changes the active view from homeScreen to profilePage and vice versa
+        displayProfile: gets data from the models and calls the view to create the profile view
+        addRelation: adds the relation to the relation model
+        
+        TO DO:
+        updateView: gets data from the models and calls the view to update the screen
+        deleteRelation: deletes the relation in the relation model
+        addMessage: adds a message to the messages array of a beaver relation record
+        changeStatus: modifies the status in the beaver record
+        handleRequests: accepts or rejects friend request => call addRelation/deleteRelation accordingly
+
+homeScreenHandlers
+    setupEvents:
+        addButton: button that calls the add beaver method
+        addLocationButtons: buttons that call the add location method
+        trackButtons: buttons that call the toggleTracking method
+        profileButtons: buttons that call the displayProfile method
+        trackAllButtons: button that calls trackAll methods
+        untrackAllButtons: button that calls the untrackAll method
+        mapButtons: calls the getGeoLocation method
+
+profileHandlers
+    setupEvents
+        friendButtons: calls the addRelation method
+        
+        TO DO:
+        unfriendButtons: calls the deleteRelation method
+        addMessageButtons: calls the add Message method
+        homeButton: calls the displayBeavers method
+        statusButton: calls the changeStatus method
+        requestForm: calls the handleRequests method

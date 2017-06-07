@@ -53,7 +53,7 @@ body {
     background-color:#1000FF;
 }
 
-#addButton:focus{
+.buttons:focus{
     transform: translateY(4px);
 }
 
@@ -75,10 +75,6 @@ body {
     background-color: #1000FF;
     border-radius: 50%;
 
-}
-
-#trackAllButton:focus, #untrackAllButton:focus {
-    transform: translateY(4px);
 }
 
 /*.divider {
@@ -243,8 +239,8 @@ hr:before{
 .allGallery {
     float: right;
     width: 25%;
-    border-left: 3px solid blue;
-    border-bottom: 3px solid blue;
+    border-left: 3px solid #703915;
+    border-bottom: 3px solid #703915;
     padding: 10px;
 }
 
@@ -253,8 +249,18 @@ hr:before{
     padding: 10px;
 }
 
+.container {
+    display: inline;
+}
+
 .pics {
     width: 30%;
     display: inline-block;
     margin: 5px;
+}
+
+.friendButtons {
+    position: relative;
+    left: -45px;
+    top: -7px;
 }
