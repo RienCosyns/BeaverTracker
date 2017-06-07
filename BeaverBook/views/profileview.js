@@ -6,6 +6,8 @@ var profileView = {
         document.body.removeChild(document.getElementById("beaverList"));
         document.body.removeChild(document.getElementById("map"));
         document.body.removeChild(document.getElementById("aside"));
+
+        document.body.classList.add("profileBody");
         
         this.displayAll(arr1);
         this.displayProfile(beaver);
