@@ -233,6 +233,7 @@ var profileHandlers = {
     setupEvents: function(){
         var friendButtons = document.getElementsByClassName("friendButtons");
         var unfriendButtons = document.getElementsByClassName("unfriendButtons");
+        var profileButtons = document.getElementsByClassName("profileBtn");
 
         for (var i = 0; i < friendButtons.length;i++){
             friendButtons[i].onclick = function(){
@@ -249,6 +250,14 @@ var profileHandlers = {
                 var id1 = document.getElementsByClassName("profile")[0].getAttribute("id");
                 var id2 = this.parentElement.getAttribute("id");
                 beaverEvents.deleteRelation(id1, id2);
+            }
+        }
+
+        for (var i = 0; i < profileButtons.length;i++){
+            profileButtons[i].onclick = function(){
+                // go to different profile
+                var id = this.parentElement.getAttribute("id");
+                beaverEvents.updateView(id);
             }
         }
     }

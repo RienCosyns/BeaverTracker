@@ -8,6 +8,12 @@ var profileView = {
         document.body.removeChild(document.getElementById("aside"));
 
         document.body.classList.add("profileBody");
+
+        //create nav
+        var nav = document.createElement("nav");
+        nav.setAttribute("id", "nav");
+        this.createHomeButton(nav);
+        document.body.appendChild(nav);
         
         this.displayOthers(arr1);
         this.displayProfile(beaver);
@@ -23,8 +29,8 @@ var profileView = {
     displayProfile: function(beaver){
         // create a div and display the beaver
 
-        if (document.getElementById(beaver.id) != null){
-            document.body.removeChild(document.getElementById(beaver.id));
+        if (document.getElementsByClassName("profile").length !== 0){
+            document.body.removeChild(document.getElementsByClassName("profile")[0]);
         }
         var beaverDiv = document.createElement("div");
         var profilePic = document.createElement("img");
@@ -70,6 +76,7 @@ var profileView = {
             img.setAttribute("src", arr[i].imagesrc);
             img.setAttribute("class","pics");
 
+            this.createProfileButton(container);
             container.appendChild(img)
             this.createRequestButton(container);
             gallery.appendChild(container);
@@ -95,6 +102,7 @@ var profileView = {
             img.setAttribute("src", arr[i].imagesrc);
             img.setAttribute("class","pics");
 
+            this.createProfileButton(container);
             container.appendChild(img);
             this.createUnfriendButton(container);
             buddyGallery.appendChild(container);
@@ -130,6 +138,23 @@ var profileView = {
 
         item.appendChild(unfriendBtn);
     },
+    createProfileButton: function(container){
+        var profileBtn = document.createElement("button");
+        profileBtn.setAttribute("type", "submit");
+        profileBtn.setAttribute("class", "profileBtn buttons");
+        profileBtn.innerHTML= "<i class=\"fa fa-user\" aria-hidden=\"true\"></i>";
+
+        container.appendChild(profileBtn);
+    },
+    createHomeButton: function(nav){
+        var homeButton = document.createElement("button");
+        homeButton.setAttribute("id", "homeButton");
+        homeButton.setAttribute("type", "button");
+        homeButton.setAttribute("class", "buttons");
+        homeButton.innerHTML = "<i class=\"fa fa-home\" aria-hidden=\"true\"></i>";
+
+        nav.appendChild(homeButton);
+    },
     createMessageButton: function(){
 
     },
@@ -137,7 +162,7 @@ var profileView = {
 
     },
     modifyFriendButton: function(id){
-        var button = document.getElementById(id).children[1];
+        var button = document.getElementById(id).children[2];
         var icon = button.children[0];
         icon.style.color = "red";
         button.setAttribute("disabled", "disabled");
