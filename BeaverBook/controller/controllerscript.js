@@ -144,6 +144,17 @@ var beaverEvents = {
         })
 
         this.updateView(id1);
+    },
+    deleteRelation: function(id1, id2){
+        //call relation model deleteRelation method
+        this.modelState.beaverRelations.deleteRelation(id1, id2, (err) =>{
+            if (err){
+                alert("Not possible to delete the relation");
+            }else{
+                alert("No longer Buddies");
+            }
+        });
+        this.updateView(id1);
     }
 }
 
@@ -229,6 +240,15 @@ var profileHandlers = {
                 var id1 = document.getElementsByClassName("profile")[0].getAttribute("id");
                 var id2 = this.parentElement.getAttribute("id");
                 beaverEvents.addRelation(id1, id2);
+            }
+        }
+
+        for (var i = 0; i < unfriendButtons.length;i++){
+            unfriendButtons[i].onclick = function(){
+                // call the delete relation method
+                var id1 = document.getElementsByClassName("profile")[0].getAttribute("id");
+                var id2 = this.parentElement.getAttribute("id");
+                beaverEvents.deleteRelation(id1, id2);
             }
         }
     }

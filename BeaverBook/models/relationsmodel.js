@@ -52,10 +52,22 @@ var beaverRelations = {
         // RETURNS:  success/not message
         // BEHAVIOR:  adds the message to the message history and allerts of success or failure.
     },
-    deleteRelation: function(){
-        // ARGS: id of the relation to be deleted
-        // RETURNS: success/not message
-        // BEHAVIOR:  deletes the relationship and returns an alert
+    deleteRelation: function(id1, id2, cb){
+        var err;
+        for (id in this.relRecords){
+            if (this.relRecords[id].beaverIdSender == id1){
+                if (this.relRecords[id].beaverIdReceiver == id2){
+                    delete this.relRecords[id];
+                    err = false;
+                    break;
+                }else{
+                    err = true;
+                }
+            }else{
+                err = true;
+            }
+        }
+        cb(err);
     },
     getOthers: function(beaverId){
         var all = beaverApp.getAll();

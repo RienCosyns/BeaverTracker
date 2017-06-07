@@ -78,7 +78,6 @@ var profileView = {
     },
     displayBuddies: function(arr){
         // remove the list if it already exists
-        alert(document.getElementById("buddyGallery"));
         if (document.getElementById("buddyGallery") !== null){
             var buddyGallery = document.getElementById("buddyGallery");
             document.body.removeChild(buddyGallery);
