@@ -248,8 +248,9 @@ nav {
 }
 
 .profileList {
-    width: 50%;
+    width: 60%;
     margin: 5px auto;
+    list-style: none;
 }
 
 /* Galleries*/

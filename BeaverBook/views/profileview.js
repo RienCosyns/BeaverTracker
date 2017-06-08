@@ -43,7 +43,7 @@ var profileView = {
         beaverProfile.setAttribute("class", "profileList");
         
         for (keys in beaver){
-            if (keys !== "track" && keys !== "imagesrc"){
+            if (keys !== "track" && keys !== "imagesrc" && keys !== "id"){
                 var item = document.createElement("li");
                 item.innerHTML = keys + ": " + beaver[keys];
                 var editButton = document.createElement("button");

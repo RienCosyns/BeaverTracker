@@ -94,8 +94,9 @@ var beaverApp = {
                 if (beaver.name.length > 0 && beaver.sex.length > 0){
                     err = false;
                     this.incrementId();
-                    this.beaverObjects[this.nextId] = beaver;
-                    this.beaverObjects[this.nextId].id = this.nextId;
+                    this.beaverObjects[this.currentId] = beaver;
+                    this.beaverObjects[this.currentId].id = this.currentId;
+                    this.beaverObjects[this.currentId].imagesrc = "images/beaver_default.png";
                     //console.log(this.beaverObjects);
                 }else{
                     err = true;
