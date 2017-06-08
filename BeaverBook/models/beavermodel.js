@@ -11,7 +11,8 @@ var beaverApp = {
         sex: "male",
         location: ["Galway"],
         track: true,
-        imagesrc: "images/beaver_0.jpg"
+        imagesrc: "images/beaver_0.jpg",
+        profileMessages: []
         },
         1: {
             id: 1,
@@ -20,7 +21,8 @@ var beaverApp = {
             sex: "female",
             location: ["Paris"],
             track: true,
-            imagesrc: "images/beaver_1.jpg"
+            imagesrc: "images/beaver_1.jpg",
+            profileMessages: []
         },
         2: {
             id: 2,
@@ -29,7 +31,8 @@ var beaverApp = {
             sex: "Other",
             location: ["Beaverton"],
             track: false,
-            imagesrc: "images/beaver_2.jpg"
+            imagesrc: "images/beaver_2.jpg",
+            profileMessages: []
         },
         3: {
             id: 3,
@@ -38,7 +41,8 @@ var beaverApp = {
             sex: "Male",
             location: ["Beaver County"],
             track: true,
-            imagesrc: "images/beaver_3.jpg"
+            imagesrc: "images/beaver_3.jpg",
+            profileMessages: []
         },
         4: {
             id: 4,
@@ -47,7 +51,8 @@ var beaverApp = {
             sex: "Male",
             location: ["Rome"],
             track: false,
-            imagesrc: "images/beaver_4.jpg"
+            imagesrc: "images/beaver_4.jpg",
+            profileMessages: []
         },
         5: {
             id: 5,
@@ -56,7 +61,8 @@ var beaverApp = {
             sex: "Female",
             location: ["Portland"],
             track: false,
-            imagesrc: "images/beaver_5.jpg"
+            imagesrc: "images/beaver_5.jpg",
+            profileMessages: []
         }
     },
     message: "",
@@ -97,6 +103,7 @@ var beaverApp = {
                     this.beaverObjects[this.currentId] = beaver;
                     this.beaverObjects[this.currentId].id = this.currentId;
                     this.beaverObjects[this.currentId].imagesrc = "images/beaver_default.png";
+                    this.beaverObjects[this.currentId].profileMessages = [];
                     //console.log(this.beaverObjects);
                 }else{
                     err = true;
@@ -144,5 +151,14 @@ var beaverApp = {
         //return message(Success/failure);
         cb(err);
         return message;
+    },
+    addProfileMessage(id, message){
+        for (key in this.beaverObjects){
+            if (this.beaverObjects[key].id == id){
+                var messagesArray = this.beaverObjects[key].profileMessages;
+                messagesArray.push(message);
+            }
+        }
+        return messagesArray;
     } 
 }

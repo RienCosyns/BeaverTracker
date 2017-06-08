@@ -14,14 +14,19 @@ var profileView = {
         nav.setAttribute("id", "nav");
         this.createHomeButton(nav);
         document.body.appendChild(nav);
-        
+
+        //create messages area
+        this.createMessageArea(document.body);
+
+        //display different sections
         this.displayOthers(arr1);
         this.displayProfile(beaver);
         this.displayBuddies(arr2);
         
         //document.getElementById("beaverList").style
     },
-    updateProfilePage: function(arr1, arr2, beaver){
+    updateProfilePage: function(arr1, arr2, beaver, profileMessages){
+        this.displayProfileMessages(profileMessages);
         this.displayOthers(arr1);
         this.displayProfile(beaver);
         this.displayBuddies(arr2);
@@ -43,7 +48,8 @@ var profileView = {
         beaverProfile.setAttribute("class", "profileList");
         
         for (keys in beaver){
-            if (keys !== "track" && keys !== "imagesrc" && keys !== "id"){
+            if (keys !== "track" && keys !== "imagesrc" && keys !== "id"
+                && keys !== "profileMessages"){
                 var item = document.createElement("li");
                 item.innerHTML = keys + ": " + beaver[keys];
                 var editButton = document.createElement("button");
@@ -116,8 +122,19 @@ var profileView = {
                         "</span><span>" + "spotted in: " + beaverObj.location.join(", ") + ".</span><hr>";
         return beaverString;
     },
-    displayRelation: function(){
+    displayProfileMessages: function(messagesArray){
+        this.createMessageArea();
+        
+        for (var i = 0; i < messagesArray.length;i++){
+            var messagebox = document.createElement("div");
+            messagebox.setAttribute("class", "messageBox");
+            var messageTitle = document.createElement("h3");
+            messageTitle.setAttribute("class", "messageTitle");
+            messageTitle.innerHTML = messagesArray[i];
 
+            messagebox.appendChild(messageTitle);
+            document.getElementById("messageArea").appendChild(messagebox);
+        }
     },
     stringifyRelation: function(){
 
@@ -155,6 +172,15 @@ var profileView = {
 
         nav.appendChild(homeButton);
     },
+    createMessageArea: function(){
+        if (document.getElementById("messageArea") !== null){
+            document.body.removeChild(document.getElementById("messageArea"));
+        }
+
+        var messageArea = document.createElement("div");   
+        messageArea.setAttribute("id", "messageArea");
+        document.body.appendChild(messageArea);
+    },
     createMessageButton: function(){
 
     },
@@ -165,7 +191,6 @@ var profileView = {
         var button = document.getElementById(id).children[2];
         var icon = button.children[0];
         icon.style.color = "red";
-        button.setAttribute("disabled", "disabled");
-
+    
     }
 }

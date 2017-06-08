@@ -100,7 +100,8 @@ var beaverEvents = {
         var beaver = this.modelState.beaverApp.getBeaverById(id);
         var beaversArray = this.modelState.beaverRelations.getOthers(id);
         var buddies = this.modelState.beaverRelations.getBuddies(id);
-        this.viewState.profileView.updateProfilePage(beaversArray, buddies, beaver);
+        var profileMessages = this.modelState.beaverApp.beaverObjects[id].profileMessages;
+        this.viewState.profileView.updateProfilePage(beaversArray, buddies, beaver, profileMessages);
 
         for (key in this.modelState.beaverRelations.relRecords){
             if (this.modelState.beaverRelations.relRecords[key].beaverIdSender == id){
@@ -133,27 +134,33 @@ var beaverEvents = {
             messageHistory: [],
             isAccepted: false,
             status: ""
-        }
+        };
+
+        var notificationMessage = "";
         this.modelState.beaverRelations.addRelation(relation, (err) => {
             if (err){
-                alert("Relationship already exists");
+                notificationMessage = "Friend request already sent to " + this.modelState.beaverApp.beaverObjects[id2].name;
             }else{
-                alert("Relationship added between: " + this.modelState.beaverApp.beaverObjects[id1].name + 
-                        " and " + this.modelState.beaverApp.beaverObjects[id2].name);
+                notificationMessage = "Friend request sent to " + this.modelState.beaverApp.beaverObjects[id2].name;
             }
         })
-
+        var notificationsArray = this.modelState.beaverApp.addProfileMessage(id1, notificationMessage);
+        this.viewState.profileView.displayProfileMessages(notificationsArray);
         this.updateView(id1);
     },
     deleteRelation: function(id1, id2){
         //call relation model deleteRelation method
+        var notificationMessage = "";
         this.modelState.beaverRelations.deleteRelation(id1, id2, (err) =>{
             if (err){
-                alert("Not possible to delete the relation");
+                notificationMessage = "Not possible to delete the relation";
             }else{
-                alert("No longer Buddies");
+                notificationMessage = "No longer Buddies with " + this.modelState.beaverApp.beaverObjects[id2].name;
             }
         });
+
+        var notificationsArray = this.modelState.beaverApp.addProfileMessage(id1, notificationMessage);
+        this.viewState.profileView.displayProfileMessages(notificationsArray);
         this.updateView(id1);
     }
 }
@@ -171,7 +178,6 @@ var homeScreenHandlers = {
         //var mapButtons = document.getElementsByClassName("mapButton");
 
         addButton.onclick = function(){
-            alert("clicked");
             var name = document.getElementById("nameInput").value;
             var age = parseInt(document.getElementById("ageInput").value);
             var sex = document.getElementById("sexInput").value;

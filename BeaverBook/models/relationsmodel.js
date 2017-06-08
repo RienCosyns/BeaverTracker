@@ -47,9 +47,8 @@ var beaverRelations = {
         cb(err);
         return message;
     },
-    addMessage: function(){
-        // ARGS: string, the new message.  int, the id of the relationship
-        // RETURNS:  success/not message
+    addMessage: function(id, message){
+        
         // BEHAVIOR:  adds the message to the message history and allerts of success or failure.
     },
     deleteRelation: function(id1, id2, cb){
