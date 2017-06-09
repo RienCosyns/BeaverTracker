@@ -84,7 +84,6 @@ var profileView = {
 
             this.createProfileButton(container);
             container.appendChild(img)
-            this.createMessageButton(container);
             this.createRequestButton(container);
             gallery.appendChild(container);
         }
@@ -203,7 +202,7 @@ var profileView = {
 
     },
     modifyFriendButton: function(id){
-        var button = document.getElementById(id).children[3];
+        var button = document.getElementById(id).children[2];
         var icon = button.children[0];
         icon.style.color = "red";
     
@@ -251,14 +250,28 @@ var profileView = {
         friendRequest.appendChild(requestForm);
     },
     createConversationBoxes: function(conArray, conArea){
+        var exitButton = document.createElement("button");
+        exitButton.setAttribute("type", "button");
+        exitButton.setAttribute("class", "buttons exitButtons");
+        exitButton.innerHTML = "<i class=\"fa fa-times-circle\" aria-hidden=\"true\"></i>";
+        conArea.appendChild(exitButton);
+        
         for (var i = 0; i < conArray.length;i++){
             var messagebox = document.createElement("div");
             messagebox.setAttribute("class", "messageBox");
             messagebox.innerHTML = conArray[i];
+            
             conArea.appendChild(messagebox);
         }
     },
-    displayConversationBox(conversations, beaver){
+    displayConversationBox(conversations){
+        var containers = document.getElementsByClassName("conversationContainer");
+        if (containers.length !== 0){
+            for (var i = 0; i < containers.length;i++){
+                document.getElementById("messageArea").removeChild(containers[i]);
+            }
+        }
+        
         var conversationArea = document.createElement("div");
         var conversationContainer = document.createElement("div");
         var textInputForm = document.createElement("form");
@@ -274,7 +287,7 @@ var profileView = {
         addTextButton.setAttribute("type", "submit");
         addTextButton.setAttribute("class", "buttons addTextButtons");
         conversationArea.setAttribute("id", "conversationArea");
-        conversationContainer.setAttribute("class", "conservationContainer");
+        conversationContainer.setAttribute("class", "conversationContainer");
 
         addTextButton.innerHTML = "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i>";
 

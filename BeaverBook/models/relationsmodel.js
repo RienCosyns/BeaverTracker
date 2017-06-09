@@ -55,11 +55,11 @@ var beaverRelations = {
         return message;
     },
     addMessage: function(relationId, message){
-        var totalMessage = "<h3 class=\"messageTitle\">" +  beaverApp.beaverObjects[this.relRecords[relId].beaverIdSender].name +
+        var totalMessage = "<h3 class=\"messageTitle\">" +  beaverApp.beaverObjects[this.relRecords[relationId].beaverIdSender].name +
                          ": <p class=\"messages\">" + message + "</p></h3>";
         var mirroredRelation;
-        var sender = this.relRecords[relId].beaverIdReceiver;
-        var receiver = this.relRecords[relId].beaverIdSender;
+        var sender = this.relRecords[relationId].beaverIdReceiver;
+        var receiver = this.relRecords[relationId].beaverIdSender;
 
         if (relationId in this.relRecords){
             this.relRecords[relationId].messageHistory.push(totalMessage);
@@ -78,8 +78,9 @@ var beaverRelations = {
     getMessages: function(relationId){
         if (relationId in this.relRecords){
             if (this.relRecords[relationId].messageHistory.length == 0){
-                this.relRecords[relationId].messageHistory.push("Start conversation with " +
-                    beaverApp.beaverObjects[this.relRecords[relationId].beaverIdReceiver].name);
+                this.relRecords[relationId].messageHistory.push("<h3 class=\"messageTitle\">Start conversation with " +
+                    beaverApp.beaverObjects[this.relRecords[relationId].beaverIdReceiver].name +
+                "</h3>");
             }
             return this.relRecords[relationId].messageHistory;
         }
@@ -154,8 +155,8 @@ var beaverRelations = {
                 isAccepted: true,
                 status: ""
             }
-            newRelation.messageHistory.push(beaverApp.beaverObjects[sender].name + " has accepted your friend request");
-            this.relRecords[relId].messageHistory.push("Friend request accepted from " + beaverApp.beaverObjects[receiver].name);
+            beaverApp.beaverObjects[this.relRecords[relId].beaverIdSender].profileMessages.push(beaverApp.beaverObjects[sender].name + " has accepted your friend request");
+            beaverApp.beaverObjects[this.relRecords[relId].beaverIdReceiver].profileMessages.push("Friend request accepted from " + beaverApp.beaverObjects[receiver].name);
             this.relRecords[this.currentId] = newRelation;
         }else{
             beaverApp.beaverObjects[this.relRecords[relId].beaverIdReceiver].profileMessages.push("Friend requests rejected from " +

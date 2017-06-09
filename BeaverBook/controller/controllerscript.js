@@ -195,13 +195,21 @@ var beaverEvents = {
     handleRequests: function(relId, bool){
         this.modelState.beaverRelations.handleRequests(relId, bool);
     },
-    displayConversations: function(relId){
+    displayConversations: function(relId, idReceiver){
         // calls this.modelState.beaverRelations.getMessages
         var conversations = this.modelState.beaverRelations.getMessages(relId);
         //calls this.viewState.profileView.displayConversationBox
-        var beaver = this.modelState.beaverApp.beaverObjects[this.modelState.beaverRelations.relRecords
-        [relId].beaverIdSender].name;
-        this.viewState.profileView.displayConversationBox(conversations, beaver);
+
+        var beaver = this.modelState.beaverApp.beaverObjects[idReceiver].name;
+
+        this.viewState.profileView.displayConversationBox(conversations);
+        document.getElementById("conversationArea").setAttribute("beaverId", idReceiver);
+        profileHandlers.setupEvents();
+    },
+    addConversation: function(relationId, message, idReceiver){
+        this.modelState.beaverRelations.addMessage(relationId, message);
+        this.displayConversations(relationId, idReceiver);
+        profileHandlers.setupEvents();
     }
 }
 
@@ -282,6 +290,8 @@ var profileHandlers = {
         var profileButtons = document.getElementsByClassName("profileBtn");
         var submitButton = document.getElementById("submitButton");
         var messageButtons = document.getElementsByClassName("messageButtons");
+        var exitButtons = document.getElementsByClassName("exitButtons");
+        var addTextButtons = document.getElementsByClassName("addTextButtons");
 
         for (var i = 0; i < friendButtons.length;i++){
             friendButtons[i].onclick = function(){
@@ -315,7 +325,29 @@ var profileHandlers = {
                 var id1 = document.getElementsByClassName("profile")[0].getAttribute("id");
                 var id2 = this.parentElement.getAttribute("id");
                 var relId = beaverRelations.getRelation(id1, id2);
-                beaverEvents.displayConversations(relId);
+                beaverEvents.displayConversations(relId, id2);
+            }
+        }
+
+        for (var i = 0; i < exitButtons.length;i++){
+            exitButtons[i].onclick = function(){
+                var messageArea = document.getElementById("messageArea");
+                messageArea.removeChild(this.parentElement.parentElement);
+                profileHandlers.setupEvents();
+            }
+        }
+
+        for (var i = 0; i < addTextButtons.length;i++){
+            addTextButtons[i].onclick = function(){
+                var form = this.parentElement;
+                var message = form.children[0].value;
+                // call function
+                var id1 = document.getElementsByClassName("profile")[0].getAttribute("id");
+                var id2 = form.parentElement.children[0].getAttribute("beaverId");
+                var relId = beaverRelations.getRelation(id1, id2);
+                //reset form
+                form.reset();
+                beaverEvents.addConversation(relId, message, id2);
             }
         }
 
