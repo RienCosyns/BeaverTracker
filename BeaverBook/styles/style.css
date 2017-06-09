@@ -318,3 +318,34 @@ nav {
     background-color: rgba(255, 255, 175, 0.3);
     border-left: 3px solid #703915;
 }
+
+.requestForm {
+    background-color:  #547016; 
+}
+
+.requestForm label{
+    margin: 5px;
+}
+
+#submitButton {
+    vertical-align: middle;
+}
+
+input[type="radio"]{
+    display: none;
+}
+
+input[type="radio"] + label span{
+    display: inline-block;
+    width: 19px;
+    height: 19px;
+    margin: 5px 10px 5px 0;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 5px solid #000;
+    border-radius: 10px;
+}
+
+input[type="radio"]:checked + label span {
+    background-color: gold;
+}

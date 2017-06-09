@@ -122,7 +122,7 @@ var profileView = {
                         "</span><span>" + "spotted in: " + beaverObj.location.join(", ") + ".</span><hr>";
         return beaverString;
     },
-    displayProfileMessages: function(messagesArray){
+    displayProfileMessages: function(messagesArray, id){
         this.createMessageArea();
         
         for (var i = 0; i < messagesArray.length;i++){
@@ -192,5 +192,47 @@ var profileView = {
         var icon = button.children[0];
         icon.style.color = "red";
     
+    },
+    handleRequestsForm: function(friendRequest){
+        var requestForm = document.createElement("form");
+        requestForm.setAttribute("class", "requestForm");
+        requestForm.setAttribute("onsubmit", "return false;");
+        requestForm.setAttribute("id", "toDecide");
+
+        var acceptLabel = document.createElement("label");
+        var rejectLabel = document.createElement("label");
+        acceptLabel.setAttribute("for", "accept");
+        rejectLabel.setAttribute("for", "reject");
+
+        var acceptBox = document.createElement("input");
+        var rejectBox = document.createElement("input");
+        acceptBox.setAttribute("type", "radio");
+        rejectBox.setAttribute("type", "radio");
+        acceptBox.setAttribute("name", "choice");
+        rejectBox.setAttribute("name", "choice");
+        acceptBox.setAttribute("id", "accept");
+        rejectBox.setAttribute("id", "reject");
+        acceptBox.setAttribute("value", "accept");
+        rejectBox.setAttribute("value", "reject");
+        acceptBox.setAttribute("checked","checked");
+
+        acceptLabel.innerHTML = "<span></span>Accept";
+        rejectLabel.innerHTML = "<span></span>Reject";
+
+        var submitButton = document.createElement("button");
+        submitButton.setAttribute("type", "submit");
+        submitButton.setAttribute("class", "buttons");
+        submitButton.setAttribute("id", "submitButton");
+        submitButton.innerHTML = "<i class=\"fa fa-check\" aria-hidden=\"true\"></i>";
+
+        requestForm.appendChild(acceptBox);
+        requestForm.appendChild(acceptLabel);
+
+        requestForm.appendChild(rejectBox);
+        requestForm.appendChild(rejectLabel);
+        
+        requestForm.appendChild(submitButton);
+
+        friendRequest.appendChild(requestForm);
     }
 }

@@ -11,16 +11,23 @@ var beaverRelations = {
             status: "Besties" // relationship status
         },
         1: {
-            id: 1,
-            beaverIdSender: 0,
-            beaverIdReceiver: 2,
-            messageHistory: ["Hi, want to build a dam together?"],
-            isAccepted: false,
-            status: "It's complicated"
+            id: 2, // unique for this record
+            beaverIdSender: 1,
+            beaverIdReceiver: 0,
+            messageHistory: [],
+            isAccepted: true, // true or false
+            status: "Besties"
         }
     },
     incrementId: function(){
         this.currentId++;
+    },
+    getRelation: function(id1, id2){
+        for (key in this.relRecords){
+            if (this.relRecords[key].beaverIdSender == id1 && this.relRecords[key].beaverIdReceiver == id2){
+                return key
+            }
+        }
     },
     changeStatus: function(){
         // ARGS: (depends on how you choose to use status)
@@ -47,25 +54,41 @@ var beaverRelations = {
         cb(err);
         return message;
     },
-    addMessage: function(id, message){
-        
-        // BEHAVIOR:  adds the message to the message history and allerts of success or failure.
+    addMessage: function(relationId, message){
+        if (relationId in this.relRecords){
+            this.relRecords[relationId].messageHistory.push(message);
+        }
+    },
+    getMessages: function(id){
+        var arr = [];
+        for (key in this.relRecords){
+            if (this.relRecords[key].beaverIdReceiver == id){
+                arr = arr.concat(this.relRecords[key].messageHistory);
+            }
+        }
+        return arr;
     },
     deleteRelation: function(id1, id2, cb){
         var err;
+        var count = 0;
+
         for (id in this.relRecords){
-            if (this.relRecords[id].beaverIdSender == id1){
-                if (this.relRecords[id].beaverIdReceiver == id2){
+            if (this.relRecords[id].beaverIdSender == id1 || this.relRecords[id].beaverIdSender ==id2 ){
+                if (this.relRecords[id].beaverIdReceiver == id2 || this.relRecords[id].beaverIdReceiver == id1){
                     delete this.relRecords[id];
+                    count++
                     err = false;
-                    break;
                 }else{
                     err = true;
                 }
             }else{
                 err = true;
             }
+            if (count == 2){
+                break;
+            }
         }
+        
         cb(err);
     },
     getOthers: function(beaverId){
@@ -76,7 +99,6 @@ var beaverRelations = {
                 all.splice(j, 1);
             }
         }
-
         // remove all beavers with whom he's already friends
 
         for (id in this.relRecords){
@@ -98,6 +120,33 @@ var beaverRelations = {
             }
         }
         return buddyArray;
+    },
+    handleRequests: function(relId, bool){
+        if (bool){
+            // accept
+            this.relRecords[relId].isAccepted = true;
+
+            // create a mirrored relation
+            var sender = this.relRecords[relId].beaverIdReceiver;
+            var receiver = this.relRecords[relId].beaverIdSender;
+            this.incrementId();
+            var newRelation = {
+                id: this.currentId,
+                beaverIdSender: sender,
+                beaverIdReceiver: receiver,
+                messageHistory: [],
+                isAccepted: true,
+                status: ""
+            }
+            newRelation.messageHistory.push(beaverApp.beaverObjects[sender].name + " has accepted your friend request");
+            this.relRecords[relId].messageHistory.push("Friend request accepted from " + beaverApp.beaverObjects[receiver].name);
+            this.relRecords[this.currentId] = newRelation;
+        }else{
+            beaverApp.beaverObjects[this.relRecords[relId].beaverIdReceiver].profileMessages.push("Friend requests rejected from " +
+                beaverApp.beaverObjects[this.relRecords[relId].beaverIdSender].name);
+            delete this.relRecords[relId];
+            
+        }
     }
 }
 

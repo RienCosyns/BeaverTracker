@@ -153,12 +153,8 @@ var beaverApp = {
         return message;
     },
     addProfileMessage(id, message){
-        for (key in this.beaverObjects){
-            if (this.beaverObjects[key].id == id){
-                var messagesArray = this.beaverObjects[key].profileMessages;
-                messagesArray.push(message);
-            }
+        if (id in this.beaverObjects){
+            this.beaverObjects[id].profileMessages.push(message);
         }
-        return messagesArray;
-    } 
+    }
 }

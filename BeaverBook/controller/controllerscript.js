@@ -96,21 +96,28 @@ var beaverEvents = {
             profileHandlers.setupEvents();
         }
     },
-    updateView: function(id){
-        var beaver = this.modelState.beaverApp.getBeaverById(id);
-        var beaversArray = this.modelState.beaverRelations.getOthers(id);
-        var buddies = this.modelState.beaverRelations.getBuddies(id);
-        var profileMessages = this.modelState.beaverApp.beaverObjects[id].profileMessages;
-        this.viewState.profileView.updateProfilePage(beaversArray, buddies, beaver, profileMessages);
+    updateView: function(id1){
+        var beaver = this.modelState.beaverApp.getBeaverById(id1);
+        var beaversArray = this.modelState.beaverRelations.getOthers(id1);
+        var buddies = this.modelState.beaverRelations.getBuddies(id1);
+        var allMessages = [];
+        var ownProfileMessages = this.modelState.beaverApp.beaverObjects[id1].profileMessages;
+        var messagesFromOthers = this.modelState.beaverRelations.getMessages(id1);
+        // alert(messagesFromOthers);
+
+        allMessages = allMessages.concat(ownProfileMessages);
+        allMessages = allMessages.concat(messagesFromOthers);
+        this.viewState.profileView.updateProfilePage(beaversArray, buddies, beaver, allMessages);
 
         for (key in this.modelState.beaverRelations.relRecords){
-            if (this.modelState.beaverRelations.relRecords[key].beaverIdSender == id){
+            if (this.modelState.beaverRelations.relRecords[key].beaverIdSender == id1){
                 if (this.modelState.beaverRelations.relRecords[key].isAccepted == false){
                 this.viewState.profileView.modifyFriendButton(this.modelState.beaverRelations.relRecords[key].beaverIdReceiver);
                 }
             } 
         }
 
+        this.createRequestForm();
         profileHandlers.setupEvents();
     },
     displayProfile: function(id){
@@ -137,31 +144,60 @@ var beaverEvents = {
         };
 
         var notificationMessage = "";
+        var messageTo = "";
+        var relationId;
         this.modelState.beaverRelations.addRelation(relation, (err) => {
             if (err){
                 notificationMessage = "Friend request already sent to " + this.modelState.beaverApp.beaverObjects[id2].name;
+                messageTo = null;
             }else{
                 notificationMessage = "Friend request sent to " + this.modelState.beaverApp.beaverObjects[id2].name;
+                relationId = this.modelState.beaverRelations.getRelation(id1, id2);
+                messageTo = "<span relId=\"" + relationId + "\">" + "Friend request received from " + this.modelState.beaverApp.beaverObjects[id1].name
+                            + "</span>";
+
             }
         })
-        var notificationsArray = this.modelState.beaverApp.addProfileMessage(id1, notificationMessage);
-        this.viewState.profileView.displayProfileMessages(notificationsArray);
+        this.modelState.beaverApp.addProfileMessage(id1, notificationMessage);
+        // this.viewState.profileView.displayProfileMessages(notificationsArray);
+        this.modelState.beaverRelations.addMessage(relationId, messageTo);
+
         this.updateView(id1);
     },
     deleteRelation: function(id1, id2){
         //call relation model deleteRelation method
         var notificationMessage = "";
+        var messageTo = "";
         this.modelState.beaverRelations.deleteRelation(id1, id2, (err) =>{
             if (err){
                 notificationMessage = "Not possible to delete the relation";
             }else{
                 notificationMessage = "No longer Buddies with " + this.modelState.beaverApp.beaverObjects[id2].name;
+        
             }
         });
-
-        var notificationsArray = this.modelState.beaverApp.addProfileMessage(id1, notificationMessage);
-        this.viewState.profileView.displayProfileMessages(notificationsArray);
+        
+        this.modelState.beaverApp.addProfileMessage(id1, notificationMessage);
+        
         this.updateView(id1);
+    },
+    createRequestForm: function(){
+        // add friendRequest class to span for the new relation
+        var spans = document.getElementsByTagName("span");
+        for (var i = 0; i < spans.length;i++){
+            var relId = spans[i].getAttribute("relId");
+            if (this.modelState.beaverRelations.relRecords[relId].isAccepted == false){
+                spans[i].classList.add("friendRequest");
+            }
+        }
+        var friendRequests = document.getElementsByClassName("friendRequest");
+        for (var i = 0; i < friendRequests.length;i++){
+            var parent = friendRequests[i].parentElement.parentElement;
+            this.viewState.profileView.handleRequestsForm(parent);
+        }
+    },
+    handleRequests: function(relId, bool){
+        this.modelState.beaverRelations.handleRequests(relId, bool);
     }
 }
 
@@ -240,6 +276,7 @@ var profileHandlers = {
         var friendButtons = document.getElementsByClassName("friendButtons");
         var unfriendButtons = document.getElementsByClassName("unfriendButtons");
         var profileButtons = document.getElementsByClassName("profileBtn");
+        var submitButton = document.getElementById("submitButton");
 
         for (var i = 0; i < friendButtons.length;i++){
             friendButtons[i].onclick = function(){
@@ -264,6 +301,24 @@ var profileHandlers = {
                 // go to different profile
                 var id = this.parentElement.getAttribute("id");
                 beaverEvents.updateView(id);
+            }
+        }
+
+        if (submitButton !== null){
+            submitButton.onclick = function(){
+                var bool;
+                if (this.parentElement.choice.value === "accept"){
+                    bool = true;
+                }else{
+                    bool = false;
+                }
+                var relId = this.parentElement.parentElement.children[0].children[0].getAttribute("relId");
+                beaverEvents.handleRequests(relId, bool);
+                // remove the form
+                var messageBox = this.parentElement.parentElement;
+                messageBox.children[0].children[0].classList.remove("friendRequest");
+                messageBox.removeChild(this.parentElement);
+                beaverEvents.updateView(document.getElementsByClassName("profile")[0].getAttribute("id"));
             }
         }
     }
