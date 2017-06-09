@@ -2,8 +2,11 @@ var homeScreen = {
     name: "homeScreen",
     createHomePage: function(){
         // add body
-        var homeBody = document.getElementsByTagName("body")[0];
-
+        var homeBody = document.body;
+        while (homeBody.firstChild) {
+            homeBody.removeChild(homeBody.firstChild);
+        }
+        document.body.classList.remove("profileBody");
         // add form and children
         var form = document.createElement("form");
         form.setAttribute("id", "myForm");
@@ -167,6 +170,7 @@ var homeScreen = {
         var map = document.getElementById("map");
         mapButton.setAttribute("type", "button");
         mapButton.setAttribute("id", "mapButton");
+        mapButton.setAttribute("class", "buttons mapButton");
         mapButton.innerHTML = 'Show Current Position';
         map.insertBefore(mapButton, document.getElementById("mapHolder"));
         // document.getElementById("mapHolder").style.display = "none";

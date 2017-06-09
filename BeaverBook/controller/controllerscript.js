@@ -10,6 +10,9 @@ var beaverEvents = {
     getViewState: function(view){
         this.viewState[view.name] = view;
     },
+    goToHome:function(){
+        this.viewState.homeScreen.createHomePage();
+    },
     displayBeavers: function(){
         //code here
         var arr = this.modelState.beaverApp.getAll();
@@ -292,6 +295,7 @@ var profileHandlers = {
         var messageButtons = document.getElementsByClassName("messageButtons");
         var exitButtons = document.getElementsByClassName("exitButtons");
         var addTextButtons = document.getElementsByClassName("addTextButtons");
+        var homeButton = document.getElementById("homeButton");
 
         for (var i = 0; i < friendButtons.length;i++){
             friendButtons[i].onclick = function(){
@@ -367,6 +371,14 @@ var profileHandlers = {
                 messageBox.removeChild(this.parentElement);
                 beaverEvents.updateView(document.getElementsByClassName("profile")[0].getAttribute("id"));
             }
+        }
+
+        homeButton.onclick = function(){
+            // switch to home screen
+            beaverEvents.activeView = "homeScreen";
+            beaverEvents.goToHome();
+            beaverEvents.viewState.homeScreen.showMapButton();
+            beaverEvents.displayBeavers();
         }
     }
 }

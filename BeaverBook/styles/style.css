@@ -194,7 +194,7 @@ hr:before{
     /*transition: all 3s ease-in-out;*/
 }
 
-#mapButton {
+.mapButton {
     width: 205px;
     margin: 0 auto;
     background-color: transparent;
