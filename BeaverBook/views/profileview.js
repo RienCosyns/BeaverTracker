@@ -260,9 +260,29 @@ var profileView = {
     },
     displayConversationBox(conversations, beaver){
         var conversationArea = document.createElement("div");
+        var conversationContainer = document.createElement("div");
+        var textInputForm = document.createElement("form");
+        var textInput = document.createElement("input");
+        var addTextButton = document.createElement("button");
+
+        textInput.setAttribute("type", "text");
+        textInput.setAttribute("class", "textInput");
+        textInput.setAttribute("placeholder", "...");
+        textInput.autofocus = true;
+        textInputForm.setAttribute("class", "textInputForm");
+        textInputForm.setAttribute("onsubmit", "return false");
+        addTextButton.setAttribute("type", "submit");
+        addTextButton.setAttribute("class", "buttons addTextButtons");
         conversationArea.setAttribute("id", "conversationArea");
-        document.getElementById("messageArea").appendChild(conversationArea);
+        conversationContainer.setAttribute("class", "conservationContainer");
+
+        addTextButton.innerHTML = "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i>";
+
+        textInputForm.appendChild(textInput);
+        textInputForm.appendChild(addTextButton);
+        document.getElementById("messageArea").appendChild(conversationContainer);
+        conversationContainer.appendChild(conversationArea);
         this.createConversationBoxes(conversations, conversationArea);
-        
+        conversationContainer.appendChild(textInputForm);
     }
 }
