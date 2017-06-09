@@ -26,7 +26,7 @@ var profileView = {
         //document.getElementById("beaverList").style
     },
     updateProfilePage: function(arr1, arr2, beaver, profileMessages){
-        this.displayProfileMessages(profileMessages);
+        this.displayProfileMessages(profileMessages, beaver.name);
         this.displayOthers(arr1);
         this.displayProfile(beaver);
         this.displayBuddies(arr2);
@@ -84,6 +84,7 @@ var profileView = {
 
             this.createProfileButton(container);
             container.appendChild(img)
+            this.createMessageButton(container);
             this.createRequestButton(container);
             gallery.appendChild(container);
         }
@@ -110,6 +111,7 @@ var profileView = {
 
             this.createProfileButton(container);
             container.appendChild(img);
+            this.createMessageButton(container);
             this.createUnfriendButton(container);
             buddyGallery.appendChild(container);
         }
@@ -122,19 +124,9 @@ var profileView = {
                         "</span><span>" + "spotted in: " + beaverObj.location.join(", ") + ".</span><hr>";
         return beaverString;
     },
-    displayProfileMessages: function(messagesArray, id){
+    displayProfileMessages: function(messagesArray, beaverName){
         this.createMessageArea();
-        
-        for (var i = 0; i < messagesArray.length;i++){
-            var messagebox = document.createElement("div");
-            messagebox.setAttribute("class", "messageBox");
-            var messageTitle = document.createElement("h3");
-            messageTitle.setAttribute("class", "messageTitle");
-            messageTitle.innerHTML = messagesArray[i];
-
-            messagebox.appendChild(messageTitle);
-            document.getElementById("messageArea").appendChild(messagebox);
-        }
+        this.createMessageBoxes(messagesArray, document.getElementById("messageArea"), beaverName);
     },
     stringifyRelation: function(){
 
@@ -181,14 +173,37 @@ var profileView = {
         messageArea.setAttribute("id", "messageArea");
         document.body.appendChild(messageArea);
     },
-    createMessageButton: function(){
+    createMessageBoxes(messagesArray, area, beaver){
 
+        for (var i = 0; i < messagesArray.length;i++){
+            var messagebox = document.createElement("div");
+            messagebox.setAttribute("class", "messageBox");
+            var messageTitle = document.createElement("h3");
+            messageTitle.setAttribute("class", "messageTitle");
+            messageTitle.innerHTML = beaver + ": ";
+            var message = document.createElement("p");
+            message.setAttribute("class", "messages");
+            message.innerHTML = messagesArray[i];
+
+            messageTitle.appendChild(message);
+            messagebox.appendChild(messageTitle);
+            area.appendChild(messagebox);
+            //document.getElementById(area).appendChild(messagebox);
+        }
+    },
+    createMessageButton: function(container){
+        var messageButton = document.createElement("button");
+        messageButton.setAttribute("type", "button");
+        messageButton.setAttribute("class", "buttons messageButtons");
+        messageButton.innerHTML = "<i class=\"fa fa-commenting\" aria-hidden=\"true\"></i>";
+
+        container.appendChild(messageButton);
     },
     createModifyButton: function(){
 
     },
     modifyFriendButton: function(id){
-        var button = document.getElementById(id).children[2];
+        var button = document.getElementById(id).children[3];
         var icon = button.children[0];
         icon.style.color = "red";
     
@@ -234,5 +249,20 @@ var profileView = {
         requestForm.appendChild(submitButton);
 
         friendRequest.appendChild(requestForm);
+    },
+    createConversationBoxes: function(conArray, conArea){
+        for (var i = 0; i < conArray.length;i++){
+            var messagebox = document.createElement("div");
+            messagebox.setAttribute("class", "messageBox");
+            messagebox.innerHTML = conArray[i];
+            conArea.appendChild(messagebox);
+        }
+    },
+    displayConversationBox(conversations, beaver){
+        var conversationArea = document.createElement("div");
+        conversationArea.setAttribute("id", "conversationArea");
+        document.getElementById("messageArea").appendChild(conversationArea);
+        this.createConversationBoxes(conversations, conversationArea);
+        
     }
 }

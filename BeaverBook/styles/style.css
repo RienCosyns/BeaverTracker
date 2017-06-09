@@ -283,7 +283,7 @@ nav {
 
 .friendButtons {
     position: relative;
-    left: -45px;
+    left: -95px;
     top: -7px;
 }
 
@@ -293,10 +293,16 @@ nav {
     left: 36px;
 }
 
+.messageButtons {
+    position:relative;
+    left: -46px;
+    top: -64px;
+}
+
 .unfriendButtons {
     position: relative;
     top: -7px;
-    left: -42px;
+    left: -92px;
 }
 
 /* Messsage Area */
@@ -308,15 +314,19 @@ nav {
 }
 
 .messageBox {
+    text-align: left;
     width: 80%;
-    margin: 10px auto;
-    text-align: center;
+    margin: 10px 0;
 }
 
 .messageTitle {
     padding: 5px;
     background-color: rgba(255, 255, 175, 0.3);
     border-left: 3px solid #703915;
+}
+
+.messages {
+    display: inline;
 }
 
 .requestForm {
@@ -348,4 +358,28 @@ input[type="radio"] + label span{
 
 input[type="radio"]:checked + label span {
     background-color: gold;
+}
+
+/* Conversation Area */
+#conversationArea {
+    width: 80%;
+    height: 200px;
+    margin: 10px auto;
+    background-color: #547016;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+#conversationArea .messageBox {
+    text-align: left;
+    width: 80%;
+    margin: 10px 0;
+}
+
+#conversationArea .messageBox .messageTitle {
+    margin: 10px 0;
+    border: none;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
 }

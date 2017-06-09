@@ -6,7 +6,7 @@ var beaverRelations = {
             id: 0, // unique for this record
             beaverIdSender: 0,
             beaverIdReceiver: 1,
-            messageHistory: ["Hi There!"],
+            messageHistory: ["<h3 class=\"messageTitle\">Paddy: <p class=\"messages\">Hi There!</p></h3>"],
             isAccepted: true, // true or false
             status: "Besties" // relationship status
         },
@@ -14,7 +14,7 @@ var beaverRelations = {
             id: 2, // unique for this record
             beaverIdSender: 1,
             beaverIdReceiver: 0,
-            messageHistory: [],
+            messageHistory: ["<h3 class=\"messageTitle\">Paddy: <p class=\"messages\">Hi There!</p></h3>"],
             isAccepted: true, // true or false
             status: "Besties"
         }
@@ -55,18 +55,34 @@ var beaverRelations = {
         return message;
     },
     addMessage: function(relationId, message){
+        var totalMessage = "<h3 class=\"messageTitle\">" +  beaverApp.beaverObjects[this.relRecords[relId].beaverIdSender].name +
+                         ": <p class=\"messages\">" + message + "</p></h3>";
+        var mirroredRelation;
+        var sender = this.relRecords[relId].beaverIdReceiver;
+        var receiver = this.relRecords[relId].beaverIdSender;
+
         if (relationId in this.relRecords){
-            this.relRecords[relationId].messageHistory.push(message);
+            this.relRecords[relationId].messageHistory.push(totalMessage);
         }
-    },
-    getMessages: function(id){
-        var arr = [];
+
         for (key in this.relRecords){
-            if (this.relRecords[key].beaverIdReceiver == id){
-                arr = arr.concat(this.relRecords[key].messageHistory);
-            }
+            if (this.relRecords[key].beaverIdSender == sender
+                && this.relRecords[key].beaverIdReceiver == receiver){
+                    mirroredRelation = key;
+                }
         }
-        return arr;
+
+        this.relRecords[mirroredRelation].messageHistory.push(totalMessage);
+        
+    },
+    getMessages: function(relationId){
+        if (relationId in this.relRecords){
+            if (this.relRecords[relationId].messageHistory.length == 0){
+                this.relRecords[relationId].messageHistory.push("Start conversation with " +
+                    beaverApp.beaverObjects[this.relRecords[relationId].beaverIdReceiver].name);
+            }
+            return this.relRecords[relationId].messageHistory;
+        }
     },
     deleteRelation: function(id1, id2, cb){
         var err;
