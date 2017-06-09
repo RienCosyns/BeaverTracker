@@ -185,9 +185,12 @@ var beaverEvents = {
         var spans = document.getElementsByTagName("span");
         for (var i = 0; i < spans.length;i++){
             var relId = spans[i].getAttribute("relId");
-            if (this.modelState.beaverRelations.relRecords[relId].isAccepted == false){
-                spans[i].classList.add("friendRequest");
+            if (relId in this.modelState.beaverRelations.relRecords){
+                if (this.modelState.beaverRelations.relRecords[relId].isAccepted == false){
+                    spans[i].classList.add("friendRequest");
+                }
             }
+            
         }
         var friendRequests = document.getElementsByClassName("friendRequest");
         for (var i = 0; i < friendRequests.length;i++){
@@ -366,9 +369,9 @@ var profileHandlers = {
                 var relId = this.parentElement.parentElement.children[0].children[0].getAttribute("relId");
                 beaverEvents.handleRequests(relId, bool);
                 // remove the form
-                var messageBox = this.parentElement.parentElement;
-                messageBox.children[0].children[0].classList.remove("friendRequest");
-                messageBox.removeChild(this.parentElement);
+                var messageBox = this.parentElement.parentElement.parentElement;
+                messageBox.children[0].children[0].children[0].classList.remove("friendRequest");
+                document.getElementById("messageArea").removeChild(messageBox);
                 beaverEvents.updateView(document.getElementsByClassName("profile")[0].getAttribute("id"));
             }
         }
