@@ -44,9 +44,22 @@ var profileView = {
         beaverDiv.setAttribute("class", "profile");
         beaverDiv.setAttribute("id", beaver.id);
         profilePic.setAttribute("src", beaver.imagesrc);
-        profilePic.setAttribute("class", "profilePic");
+        profilePic.setAttribute("id", "profilePic");
         beaverProfile.setAttribute("class", "profileList");
         beaverProfile.setAttribute("id", "profileList");
+
+        var imageSource = document.createElement("input");
+        imageSource.setAttribute("type", "file");
+        imageSource.setAttribute("accept", "image/*");
+        imageSource.setAttribute("id", "imageUpload");
+
+        var uploadButton = document.createElement("button");
+        uploadButton.setAttribute("type", "submit");
+        uploadButton.setAttribute("class", "buttons");
+        uploadButton.setAttribute("id", "uploadButton");
+        uploadButton.innerHTML = "<i class=\"fa fa-check\" aria-hidden=\"true\"></i>";
+        imageSource.appendChild(uploadButton);
+        beaverProfile.appendChild(imageSource);
         
         for (keys in beaver){
             if (keys !== "track" && keys !== "imagesrc" && keys !== "id"
@@ -65,6 +78,8 @@ var profileView = {
                 beaverProfile.appendChild(item);
             }
         }
+        
+        
         beaverDiv.appendChild(profilePic);
         beaverDiv.appendChild(beaverProfile);
         document.body.appendChild(beaverDiv);

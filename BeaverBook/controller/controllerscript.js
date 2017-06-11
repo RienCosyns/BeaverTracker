@@ -324,6 +324,7 @@ var profileHandlers = {
         var homeButton = document.getElementById("homeButton");
         var editButtons = document.getElementsByClassName("editButtons");
         var okButtons = document.getElementsByClassName("okButtons");
+        var imageUpload = document.getElementById("imageUpload");
 
         for (var i = 0; i < friendButtons.length;i++){
             friendButtons[i].onclick = function(){
@@ -394,13 +395,19 @@ var profileHandlers = {
             for (var i = 0; i < okButtons.length;i++){
                 okButtons[i].onclick = function(){
                     var id1 = document.getElementsByClassName("profile")[0].getAttribute("id");
+
                     var id2 = this.parentElement.parentElement.getAttribute("id");
+
                     var rel = beaverRelations.getRelation(id1, id2);
+    
                     var input = this.previousSibling.getAttribute("id");
+  
                     var key = input.replace("Input", "");
+
                     var value = document.getElementById(input).value;
-                    
+
                     if (input == "statusInput"){
+                        value = this.previousSibling.value
                         beaverRelations.changeStatus(rel, value);
                     }else{
                         beaverApp.modifyBeaver(id1, key, value);
@@ -437,5 +444,25 @@ var profileHandlers = {
             beaverEvents.viewState.homeScreen.showMapButton();
             beaverEvents.displayBeavers();
         }
+
+        imageUpload.addEventListener("change", readURL, true);
+            // var image = document.getElementById("profilePic");
+        function readURL(){
+            var file = document.getElementById("imageUpload").files[0];
+            var reader = new FileReader();
+            var id = document.getElementsByClassName("profile")[0].getAttribute("id");
+            reader.onloadend = function(){
+                document.getElementById("profilePic").src = reader.result;
+                beaverApp.beaverObjects[id].imagesrc = reader.result;
+            }
+            if (file){
+                reader.readAsDataURL(file);
+            }
+        }
+        // var id = document.getElementsByClassName("profile")[0].getAttribute("id");
+        // alert(this.value);
+        // beaverApp.beaverObjects[id].imagesrc = this.value;
+        // beaverEvents.updateView(id);
+        
     }
 }
