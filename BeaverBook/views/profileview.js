@@ -46,20 +46,28 @@ var profileView = {
         profilePic.setAttribute("src", beaver.imagesrc);
         profilePic.setAttribute("class", "profilePic");
         beaverProfile.setAttribute("class", "profileList");
+        beaverProfile.setAttribute("id", "profileList");
         
         for (keys in beaver){
             if (keys !== "track" && keys !== "imagesrc" && keys !== "id"
                 && keys !== "profileMessages"){
                 var item = document.createElement("li");
                 item.innerHTML = keys + ": " + beaver[keys];
+                var input = document.createElement("input");
+                input.setAttribute("type", "text");
+                input.setAttribute("class", "textInput");
+                input.setAttribute("id", keys + "Input");
+                input.setAttribute("placeholder", beaver[keys]);
+                item.appendChild(input);
+                input.style.display = "none";
+                
                 var editButton = document.createElement("button");
-                editButton.setAttribute("class", "buttons");
+                editButton.setAttribute("class", "editButtons buttons");
                 editButton.setAttribute("type", "submit");
                 editButton.innerHTML = "<i class=\"fa fa-pencil\" aria-hidden=\"true\"></i>";
                 item.appendChild(editButton);
                 beaverProfile.appendChild(item);
             }
-            
         }
         beaverDiv.appendChild(profilePic);
         beaverDiv.appendChild(beaverProfile);

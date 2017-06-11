@@ -216,6 +216,14 @@ var beaverEvents = {
         this.modelState.beaverRelations.addMessage(relationId, message);
         this.displayConversations(relationId, idReceiver);
         profileHandlers.setupEvents();
+    },
+    edit: function(li){
+        li.children[0].style.display = "inline-block";
+        
+        li.children[1].innerHTML = "<i class=\"fa fa-check-circle\" aria-hidden=\"true\"></i>";
+        li.children[1].classList.remove("editButtons");
+        li.children[1].classList.add("okButtons");
+        profileHandlers.setupEvents();
     }
 }
 
@@ -299,6 +307,8 @@ var profileHandlers = {
         var exitButtons = document.getElementsByClassName("exitButtons");
         var addTextButtons = document.getElementsByClassName("addTextButtons");
         var homeButton = document.getElementById("homeButton");
+        var editButtons = document.getElementsByClassName("editButtons");
+        var okButtons = document.getElementsByClassName("okButtons");
 
         for (var i = 0; i < friendButtons.length;i++){
             friendButtons[i].onclick = function(){
@@ -357,6 +367,29 @@ var profileHandlers = {
                 beaverEvents.addConversation(relId, message, id2);
             }
         }
+
+        for (var i = 0; i < editButtons.length;i++){
+            editButtons[i].onclick = function(){
+                var listItem = this.parentElement;
+                //call function    
+                beaverEvents.edit(listItem);           
+            }
+        }
+        if (okButtons.length !== 0){
+            for (var i = 0; i < okButtons.length;i++){
+                okButtons[i].onclick = function(){
+                    var id = document.getElementsByClassName("profile")[0].getAttribute("id");
+                    var input = this.previousSibling.getAttribute("id");
+                    var key = input.replace("Input", "");
+                    var value = document.getElementById(input).value;
+                    
+                    beaverApp.modifyBeaver(id, key, value);
+                    beaverEvents.updateView(id);
+                }
+                
+            }
+        }
+        
 
         if (submitButton !== null){
             submitButton.onclick = function(){

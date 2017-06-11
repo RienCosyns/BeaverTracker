@@ -156,5 +156,10 @@ var beaverApp = {
         if (id in this.beaverObjects){
             this.beaverObjects[id].profileMessages.push(message);
         }
+    },
+    modifyBeaver: function(id, key, value){
+        if (id in this.beaverObjects){
+            this.beaverObjects[id][key] = value;
+        }
     }
 }
