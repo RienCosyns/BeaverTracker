@@ -115,7 +115,7 @@ var beaverEvents = {
                 }
             } 
         }
-
+        this.displayStatus(id1);
         this.createRequestForm();
         profileHandlers.setupEvents();
     },
@@ -132,6 +132,7 @@ var beaverEvents = {
                 }
             } 
         }
+        this.displayStatus(id);
     },
     addRelation: function(id1, id2){
         var relation = {
@@ -139,7 +140,7 @@ var beaverEvents = {
             beaverIdReceiver: id2,
             messageHistory: [],
             isAccepted: false,
-            status: ""
+            status: "Status?"
         };
 
         var notificationMessage = "";
@@ -219,11 +220,25 @@ var beaverEvents = {
     },
     edit: function(li){
         li.children[0].style.display = "inline-block";
-        
+        li.children[0].autofocus = true;
         li.children[1].innerHTML = "<i class=\"fa fa-check-circle\" aria-hidden=\"true\"></i>";
         li.children[1].classList.remove("editButtons");
         li.children[1].classList.add("okButtons");
         profileHandlers.setupEvents();
+    },
+    displayStatus: function(id){
+        
+        for (rel in this.modelState.beaverRelations.relRecords){
+            if (this.modelState.beaverRelations.relRecords[rel].beaverIdSender == id){
+                // get buddies and display status
+                var id2 = this.modelState.beaverRelations.relRecords[rel].beaverIdReceiver;
+                if (document.getElementById(id2)
+                    && this.modelState.beaverRelations.relRecords[rel].isAccepted == true){
+                    document.getElementById(id2).children[4].children[2].innerHTML =
+                        this.modelState.beaverRelations.relRecords[rel].status;
+                }
+            }
+        }
     }
 }
 
@@ -378,13 +393,19 @@ var profileHandlers = {
         if (okButtons.length !== 0){
             for (var i = 0; i < okButtons.length;i++){
                 okButtons[i].onclick = function(){
-                    var id = document.getElementsByClassName("profile")[0].getAttribute("id");
+                    var id1 = document.getElementsByClassName("profile")[0].getAttribute("id");
+                    var id2 = this.parentElement.parentElement.getAttribute("id");
+                    var rel = beaverRelations.getRelation(id1, id2);
                     var input = this.previousSibling.getAttribute("id");
                     var key = input.replace("Input", "");
                     var value = document.getElementById(input).value;
                     
-                    beaverApp.modifyBeaver(id, key, value);
-                    beaverEvents.updateView(id);
+                    if (input == "statusInput"){
+                        beaverRelations.changeStatus(rel, value);
+                    }else{
+                        beaverApp.modifyBeaver(id1, key, value);
+                    }
+                    beaverEvents.updateView(id1);
                 }
                 
             }

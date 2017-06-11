@@ -61,11 +61,7 @@ var profileView = {
                 item.appendChild(input);
                 input.style.display = "none";
                 
-                var editButton = document.createElement("button");
-                editButton.setAttribute("class", "editButtons buttons");
-                editButton.setAttribute("type", "submit");
-                editButton.innerHTML = "<i class=\"fa fa-pencil\" aria-hidden=\"true\"></i>";
-                item.appendChild(editButton);
+                this.createModifyButton(item);
                 beaverProfile.appendChild(item);
             }
         }
@@ -120,7 +116,11 @@ var profileView = {
             container.appendChild(img);
             this.createMessageButton(container);
             this.createUnfriendButton(container);
+
+            this.createStatusBox(container);
+
             buddyGallery.appendChild(container);
+
         }
         document.body.appendChild(buddyGallery);
 
@@ -134,9 +134,6 @@ var profileView = {
     displayProfileMessages: function(messagesArray, beaverName){
         this.createMessageArea();
         this.createMessageBoxes(messagesArray, document.getElementById("messageArea"), beaverName);
-    },
-    stringifyRelation: function(){
-
     },
     createRequestButton: function(item){
         var friendBtn = document.createElement("button");
@@ -206,8 +203,12 @@ var profileView = {
 
         container.appendChild(messageButton);
     },
-    createModifyButton: function(){
-
+    createModifyButton: function(item){
+        var editButton = document.createElement("button");
+        editButton.setAttribute("class", "editButtons buttons");
+        editButton.setAttribute("type", "submit");
+        editButton.innerHTML = "<i class=\"fa fa-pencil\" aria-hidden=\"true\"></i>";
+        item.appendChild(editButton);
     },
     modifyFriendButton: function(id){
         var button = document.getElementById(id).children[2];
@@ -305,5 +306,22 @@ var profileView = {
         conversationContainer.appendChild(conversationArea);
         this.createConversationBoxes(conversations, conversationArea);
         conversationContainer.appendChild(textInputForm);
+    },
+    createStatusBox(container){
+        var statusBox = document.createElement("div");
+        var statusMessage = document.createElement("h4");
+        statusMessage.setAttribute("class", "statusMessage");
+        statusBox.setAttribute("class", "statusBox");
+        var input = document.createElement("input");
+        input.setAttribute("type", "text");
+        input.setAttribute("class", "textInput");
+        input.setAttribute("id", "statusInput");
+        input.setAttribute("placeholder", "status");
+        input.style.display = "none";
+
+        statusBox.appendChild(input);
+        this.createModifyButton(statusBox);
+        statusBox.appendChild(statusMessage);
+        container.appendChild(statusBox);
     }
 }

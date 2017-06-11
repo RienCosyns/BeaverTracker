@@ -29,10 +29,10 @@ var beaverRelations = {
             }
         }
     },
-    changeStatus: function(){
-        // ARGS: (depends on how you choose to use status)
-        // RETURNS:  success/not message
-        // BEHAVIOR:  accesses the status of the indicated record and change it
+    changeStatus: function(relationId, newStatus){
+        if (relationId in this.relRecords){
+            this.relRecords[relationId].status = newStatus;
+        }
     },
     addRelation: function(relation, cb){
         var message = "Success";
@@ -153,7 +153,7 @@ var beaverRelations = {
                 beaverIdReceiver: receiver,
                 messageHistory: [],
                 isAccepted: true,
-                status: ""
+                status: "Status?"
             }
             beaverApp.beaverObjects[this.relRecords[relId].beaverIdSender].profileMessages.push(beaverApp.beaverObjects[sender].name + " has accepted your friend request");
             beaverApp.beaverObjects[this.relRecords[relId].beaverIdReceiver].profileMessages.push("Friend request accepted from " + beaverApp.beaverObjects[receiver].name);

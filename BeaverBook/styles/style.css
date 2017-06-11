@@ -232,7 +232,7 @@ nav {
 .profile {
     float: left;
     width: 25%;
-    height: 400px;
+    max-height: 500px;
     padding: 10px;
     /*border-right: 3px solid #703915;
     border-bottom: 3px solid #703915;*/
@@ -251,6 +251,29 @@ nav {
     width: 60%;
     margin: 5px auto;
     list-style: none;
+    padding: 5px;
+}
+
+.profileList .editButtons {
+    margin-left: 5px;
+}
+
+.profileList > li {
+    display: block;
+}
+
+.profileList .textInput {
+    width: 150px;
+    margin-right: 10px;
+}
+
+.textInput::-webkit-input-placeholder{
+    color: black;
+}
+
+.profileList .buttons {
+    padding: 0;
+    vertical-align: middle;
 }
 
 /* Galleries*/
@@ -303,6 +326,25 @@ nav {
     position: relative;
     top: -7px;
     left: -92px;
+}
+
+.statusBox{
+    display: inline-flex;
+    margin-left: 46px;  
+}
+
+.textInput {
+    border: none;
+    outline: none;
+    width: 80%;
+    height: 35px;
+    border-bottom-left-radius: 10px;
+    background-color: #A6753A;
+    border: 2px solid #703915;
+    color: black;
+    padding-left: 10px;
+    font-family: inherit;
+    /*font-size: larger;*/
 }
 
 /* Messsage Area */
